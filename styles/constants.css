@@ -1,0 +1,17 @@
+/* VARIABLES */
+
+:root {
+    --clear: #FFFFFF;
+    --main-text: #393939;
+    --light-text: #777777;
+    --lighter-text: #999;
+    --input-background-triplet: 234, 234, 234;
+    --input-background: rgb(var(--input-background-triplet));
+
+    --accent-1-triplet: 249, 105, 79;
+    --accent-1: rgb(var(--accent-1-triplet));
+    --accent-2-triplet: 237, 87, 233;
+    --accent-2: rgb(var(--accent-2-triplet));
+
+    --horizontal-margin: 40px;
+}
