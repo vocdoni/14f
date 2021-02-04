@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: 'Manrope', sans-serif;
+}
+
+.bg-translucent {    
+    background-color: rgba(255, 255, 255, 0.75);
+}
