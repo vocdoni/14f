@@ -1,8 +1,9 @@
+import { withRouter } from "next/router";
 import Link from "next/link";
 import Layout from "../../components/layout";
 import PoweredByVocdoni from "../../components/powered_by";
 
-function Name() {
+const Name = () => {
     return (
         <>
             <span className="font-bold" style={{ color: "#6A759E" }}>
@@ -11,9 +12,9 @@ function Name() {
             ruites
         </>
     );
-}
+};
 
-export default function Home() {
+const IndexPage = () => {
     return (
         <Layout>
             <header className="mt-8 mb-5 font-extrabold leading-none tracking-tight text-gray-900">
@@ -44,9 +45,11 @@ export default function Home() {
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
-                <button className="inline-flex items-center col-span-1 p-4 text-xl font-semibold text-white transition-colors duration-200 bg-green-500 border border-transparent shadow md:col-span-2 hover:bg-green-600 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none">
-                    <span className="w-full text-center">🗳️ Vota!</span>
-                </button>
+                <Link href="/staging/region">
+                    <button className="inline-flex items-center col-span-1 p-4 text-xl font-semibold text-white transition-colors duration-200 bg-green-500 border border-transparent shadow md:col-span-2 hover:bg-green-600 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none">
+                        <span className="w-full text-center">🗳️ Vota!</span>
+                    </button>
+                </Link>
                 <div className="col-span-1 px-4 py-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
                     Si disposes d'un certificat idCAT Certificat, pots
                     participar-hi durant la jornada electoral del 14 de febrer
@@ -106,9 +109,13 @@ export default function Home() {
                     .
                 </p>
             </div>
-            <footer className="flex py-10">
-                <PoweredByVocdoni />
+            <footer className="py-10 mx-auto">
+                <span className="mx-auto lg:mx-0">
+                    <PoweredByVocdoni />
+                </span>
             </footer>
         </Layout>
     );
-}
+};
+
+export default withRouter(IndexPage);

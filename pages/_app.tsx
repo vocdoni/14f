@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { NextComponentType, NextPageContext } from "next";
 import { AppInitialProps } from "next/app";
 import { Router } from "next/router";
@@ -19,7 +19,7 @@ const CustomBooth: FC<NextAppProps> = ({ Component, pageProps }) => {
     return (
         <UsePoolProvider bootnodeUri={bootnodeUri} networkId={networkId}>
             <UseProcessProvider>
-                <Component {...pageProps} />;
+                <Component {...pageProps} />
             </UseProcessProvider>
         </UsePoolProvider>
     );
