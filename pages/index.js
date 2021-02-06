@@ -4,7 +4,7 @@ import PoweredByVocdoni from "../components/powered_by";
 function Name() {
     return (
         <>
-            <span style={{ color: "#6A759E" }}>14F</span>ruites
+            <span className="font-bold" style={{ color: "#6A759E" }}>14F</span>ruites
         </>
     );
 }
@@ -20,7 +20,7 @@ export default function Home() {
                     />
                 </a>
             </header>
-            <div className="max-w-screen-lg mb-6 font-medium leading-6 lg:leading-8 text-md sm:text-xl">
+            <div className="max-w-screen-lg mb-6 font-medium leading-5 lg:leading-7 text-md sm:text-xl">
                 <p className="mb-3">
                     Benvinguts a <Name />, una prova pilot de vot digital que
                     s'executarà en paral·lel a les eleccions al Parlament de
@@ -40,7 +40,7 @@ export default function Home() {
                     gairebé immediata en aquesta mateixa pàgina web.
                 </p>
             </div>
-            <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-10">
+            <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10 lg:leading-6">
                 <a
                     href="http://eepurl.com/hpOlLv"
                     target="_blank"
