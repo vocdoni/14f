@@ -4,7 +4,10 @@ import PoweredByVocdoni from "../components/powered_by";
 function Name() {
     return (
         <>
-            <span className="font-bold" style={{ color: "#6A759E" }}>14F</span>ruites
+            <span className="font-bold" style={{ color: "#6A759E" }}>
+                14F
+            </span>
+            ruites
         </>
     );
 }
@@ -40,7 +43,7 @@ export default function Home() {
                     gairebé immediata en aquesta mateixa pàgina web.
                 </p>
             </div>
-            <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10 lg:leading-6">
+            <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
                 <a
                     href="http://eepurl.com/hpOlLv"
                     target="_blank"
@@ -63,7 +66,7 @@ export default function Home() {
                 </div>
             </div>
             <div className="text-xs leading-4 text-gray-600">
-                <p class="mb-2">
+                <p className="mb-2">
                     Aquesta votació està organitzada per Vocdoni i no té
                     vinculació amb les eleccions al Parlament. Es tracta d'un
                     experiment que no compta amb un disseny integral que
@@ -71,7 +74,7 @@ export default function Home() {
                     podrien ser un sistema avançat d'identificació o mecanismes
                     contra la coerció del vot.{" "}
                 </p>
-                <p class="mb-2">
+                <p className="mb-2">
                     El sistema implementa un mecanisme criptogràfic experimental
                     anomenat "signatura cega" que proporciona al votant la
                     possibilitat d'utilitzar certificats tipus idCAT amb el grau
