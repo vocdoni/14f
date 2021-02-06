@@ -194,7 +194,7 @@ class SvgBackground extends React.Component {
     }
 }
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
     const svgString = renderToStaticMarkup(<SvgBackground />);
 
     return (
@@ -245,4 +245,6 @@ export default function Layout({ children }) {
             `}</style>
         </div>
     );
-}
+};
+
+export default Layout;
