@@ -242,7 +242,7 @@ export default function Layout({ children }) {
                 #layout {
                     min-height: 100vh;
                     background-size: 800px 76.8px;
-                    background-image: url("data:image/svg+xml;utf8,${svgString}");
+                    background-image: url('data:image/svg+xml;utf8,${svgString}');
                 }
             `}</style>
         </div>
