@@ -4,7 +4,9 @@
 const lang = "ca"
 const DEVELOPMENT = process.env.NODE_ENV !== "production"
 
-const processIdList = []
+const processIdList = [
+    '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0'
+]
 
 module.exports = {
     LANG: lang,
