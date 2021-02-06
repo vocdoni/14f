@@ -4,7 +4,12 @@
 const lang = "ca"
 const DEVELOPMENT = process.env.NODE_ENV !== "production"
 
-const processIdList = []
+const processes = {
+    'barcelona': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
+    'lleida': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
+    'girona': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
+    'tarragona': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
+}
 
 module.exports = {
     LANG: lang,
@@ -17,7 +22,7 @@ module.exports = {
 
     // VOCHAIN
     BLOCK_TIME: process.env.BLOCK_TIME || "12",
-    PROCESS_ID_LIST: processIdList,
+    PROCESSES: processes,
 
     // GATEWAYS
     BOOTNODES_URL: DEVELOPMENT ? "https://bootnodes.vocdoni.net/gateways.dev.json" : (process.env.BOOTNODES_URL || "https://bootnodes.vocdoni.net/gateways.json"),

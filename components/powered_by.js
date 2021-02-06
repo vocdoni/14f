@@ -3,7 +3,7 @@ import React from "react";
 export default class PoweredByVocdoni extends React.Component {
     render() {
       return (
-        <a href="https://vocdoni.io" className="mx-auto lg:mx-0">
+        <a href="https://vocdoni.io">
           <svg
             width="216"
             height="27"
@@ -86,6 +86,6 @@ export default class PoweredByVocdoni extends React.Component {
             <circle cx="213.262" cy="4.86174" r="1.83171" fill="#6A759E" />
           </svg>
         </a>
-      );
+      )
     }
   }
