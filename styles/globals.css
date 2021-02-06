@@ -2,10 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --vocdoni-primary: #6A759E;
+}
+
 * {
     font-family: 'Manrope', sans-serif;
 }
 
 .bg-translucent {    
     background-color: rgba(255, 255, 255, 0.75);
+}
+
+.text-vocdoni {
+    color: var(--vocdoni-primary);
+}
+
+.bg-vocdoni {
+    background-color: var(--vocdoni-primary);
 }

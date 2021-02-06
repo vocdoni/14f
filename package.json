@@ -24,6 +24,7 @@
         "autoprefixer": "^10.2.4",
         "dvote-js": "^0.21.4",
         "ethers": "^5.0.25",
+        "faker": "^5.3.1",
         "next": "^10.0.6",
         "postcss": "^8.2.4",
         "react": "^17.0.1",
@@ -36,7 +37,9 @@
         "use-url-hash": "^0.1.0"
     },
     "devDependencies": {
+        "@types/faker": "^5.1.6",
         "@types/node": "^14.14.22",
+        "@types/react-dom": "^17.0.0",
         "eslint": "^7.12.1",
         "eslint-plugin-react": "^7.21.5"
     }
