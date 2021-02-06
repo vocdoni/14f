@@ -3,7 +3,7 @@ import React from "react";
 export default class PoweredByVocdoni extends React.Component {
     render() {
       return (
-        <a href="https://vocdoni.io">
+        <a href="https://vocdoni.io" className="mx-auto lg:mx-0">
           <svg
             width="216"
             height="27"
