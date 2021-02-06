@@ -91,8 +91,15 @@ export default function Home() {
                     .
                 </p>
                 <p>
-                    Per saber-ne més consulta la nota de premsa aquí i la
-                    informació tècnica{" "}
+                    Per saber-ne més consulta la nota de premsa{" "}
+                    <a
+                        href="https://blog.vocdoni.io/catalunya-acollira-una-primera-prova-de-vot-digital-paral-lela-a-les-eleccions-del-14f/"
+                        target="_blank"
+                        className="underline"
+                    >
+                        aquí
+                    </a>{" "}
+                    i la informació tècnica{" "}
                     <a
                         href="https://www.notion.so/Info-t-cnica-Votaci-amb-certificat-digital-b222379b80894380b6047036deedef5c"
                         target="_blank"
