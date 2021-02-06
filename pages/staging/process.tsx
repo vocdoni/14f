@@ -1,17 +1,42 @@
 import { useRouter, withRouter } from "next/router";
 import Layout from "../../components/layout";
 
+const candidatures: Array<string[]> = [
+    ["🌹", "PSC"],
+    ["🍋", "ERC"],
+    ["🥑", "PDeCAT"],
+    ["🍍", "CUP-G"],
+    ["🍈", "JxCat"],
+    ["💧", "PP"],
+    ["🍊", "Cs"],
+    ["🍆", "ECP-PEC"],
+    ["🥦", "VOX"],
+    ["🌶", "PCTC"],
+    ["🍅", "IZQP"],
+    ["🍌", "Primàries"],
+    ["🍏", "PNC"],
+    ["🧊", "FNC"],
+    ["🍉", "RECORTES CERO-GV-M"],
+];
+
+const additionalOptions: Array<string[]> = [
+    ["⬜", "Vot en blanc"],
+    ["💩", "Vot nul"],
+];
+
 const ProcessPage = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const Confirm = (e) => {
-        e.preventDefault()
-    
-        const mustVote = confirm(`Confirmes el teu vot per ${e.target.innerText.replace("\n", " ")}?`)
+        e.preventDefault();
+
+        const mustVote = confirm(
+            `Confirmes el teu vot per ${e.target.innerText.replace("\n", " ")}?`
+        );
         if (mustVote) {
-            router.push('/staging/thanks')
+            router.push("/staging/thanks");
         }
-    }
+    };
 
     return (
         <Layout>
@@ -20,52 +45,29 @@ const ProcessPage = () => {
                     Tria la teva fruita preferida!
                 </h1>
             </header>
-            <div className="grid grid-cols-4 gap-4 px-4 sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8">
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍍<div className="pt-1 text-xs">CUP-G</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍋<div className="pt-1 text-xs">ERC</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍈<div className="pt-1 text-xs">JxCAT</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🌹<div className="pt-1 text-xs">PSC</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍊<div className="pt-1 text-xs">Cs</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍆<div className="pt-1 text-xs">ECP</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    💧<div className="pt-1 text-xs">PPC</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🥑<div className="pt-1 text-xs">PDeCAT</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🥦<div className="pt-1 text-xs">Vox</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍏<div className="pt-1 text-xs">PNC</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍌<div className="pt-1 text-xs">Primàries</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🧊<div className="pt-1 text-xs">FNC</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🌶<div className="pt-1 text-xs">PCTC</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍅<div className="pt-1 text-xs">IZQP</div>
-                </button>
-                <button onClick={Confirm} className="px-4 py-4 text-3xl shadow bg-translucent">
-                    🍉<div className="pt-1 text-xs">RECORTES CERO-GV-M</div>
-                </button>
+            <div className="grid grid-cols-4 gap-4">
+                {candidatures.sort(() => Math.random() - 0.5).map((value) => {
+                    return (
+                        <button
+                            onClick={Confirm}
+                            className="px-4 py-4 text-3xl shadow bg-translucent hover:bg-gray-100"
+                        >
+                            {value[0]}
+                            <div className="pt-1 text-xs">{value[1]}</div>
+                        </button>
+                    );
+                })}
+                {additionalOptions.map((value) => {
+                    return (
+                        <button
+                            onClick={Confirm}
+                            className="px-4 py-4 text-3xl shadow bg-translucent hover:bg-gray-100"
+                        >
+                            {value[0]}
+                            <div className="pt-1 text-xs">{value[1]}</div>
+                        </button>
+                    );
+                })}
             </div>
         </Layout>
     );

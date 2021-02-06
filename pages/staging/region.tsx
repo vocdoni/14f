@@ -12,22 +12,22 @@ const RegionSelectorPage = () => {
             </header>
             <div className="grid grid-cols-2 gap-4 px-4 text-2xl sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8">
                 <Link href="/staging/process">
-                    <button className="px-4 py-4 font-semibold transition-colors duration-200 shadow bg-translucent hover:bg-gray-100 rounded-xl">
+                    <button className="px-4 py-4 font-semibold text-white transition-colors duration-200 bg-green-500 shadow hover:bg-green-600 rounded-xl">
                         Barcelona
                     </button>
                 </Link>
                 <Link href="/staging/process">
-                    <button className="px-4 py-4 font-semibold transition-colors duration-200 shadow bg-translucent hover:bg-gray-100 rounded-xl">
+                    <button className="px-4 py-4 font-semibold text-white transition-colors duration-200 bg-green-500 shadow hover:bg-green-600 rounded-xl">
                         Girona
                     </button>
                 </Link>
                 <Link href="/staging/process">
-                    <button className="px-4 py-4 font-semibold transition-colors duration-200 shadow bg-translucent hover:bg-gray-100 rounded-xl">
+                    <button className="px-4 py-4 font-semibold text-white transition-colors duration-200 bg-green-500 shadow hover:bg-green-600 rounded-xl">
                         Lleida
                     </button>
                 </Link>
                 <Link href="/staging/process">
-                    <button className="px-4 py-4 font-semibold transition-colors duration-200 shadow bg-translucent hover:bg-gray-100 rounded-xl">
+                    <button className="px-4 py-4 font-semibold text-white transition-colors duration-200 bg-green-500 shadow hover:bg-green-600 rounded-xl">
                         Tarragona
                     </button>
                 </Link>

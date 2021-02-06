@@ -1,5 +1,4 @@
 import Layout from "../components/layout";
-import PoweredByVocdoni from "../components/powered_by";
 
 const Name = () => {
     return (
@@ -110,9 +109,6 @@ const IndexPage = () => {
                     .
                 </p>
             </div>
-            <footer className="flex py-10">
-                <PoweredByVocdoni />
-            </footer>
         </Layout>
     );
 };

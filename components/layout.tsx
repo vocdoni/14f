@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 
 import { renderToStaticMarkup } from "react-dom/server";
+import PoweredByVocdoni from "./powered_by";
 
 class SvgBackground extends React.Component {
     render() {
@@ -233,8 +234,13 @@ const Layout = ({ children }) => {
                     content="https://14fruites.cat/social_banner.png"
                 />
             </Head>
-            <main className="flex-1 w-4/5 max-w-screen-lg mx-auto">
-                {children}
+            <main className="flex flex-col flex-1 w-4/5 max-w-screen-lg mx-auto">
+                <div className="flex-1">
+                    {children}
+                </div>
+                <footer className="flex py-10">
+                    <PoweredByVocdoni />
+                </footer>
             </main>
             <style jsx>{`
                 #layout {
