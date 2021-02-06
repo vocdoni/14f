@@ -1,7 +1,5 @@
-import { withRouter } from "next/router";
-import Link from "next/link";
+import { useRouter, withRouter } from "next/router";
 import Layout from "../../components/layout";
-import PoweredByVocdoni from "../../components/powered_by";
 
 const Name = () => {
     return (
@@ -15,6 +13,23 @@ const Name = () => {
 };
 
 const IndexPage = () => {
+    const router = useRouter();
+
+    const checkCensus = async () => {
+        const R = await fetch("https://ci2.vocdoni.net/ca", {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"request":{"method":"auth", "request":"1234"}, "id":"1234"})
+        });
+
+        router.push("/staging/region");
+    };
+
     return (
         <Layout>
             <header className="mt-8 mb-5 font-extrabold leading-none tracking-tight text-gray-900">
@@ -45,11 +60,13 @@ const IndexPage = () => {
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
-                <Link href="/staging/region">
-                    <button className="inline-flex items-center col-span-1 p-4 text-xl font-semibold text-white transition-colors duration-200 bg-green-500 border border-transparent shadow md:col-span-2 hover:bg-green-600 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none">
-                        <span className="w-full text-center">🗳️ Vota!</span>
-                    </button>
-                </Link>
+                <a
+                    href="#"
+                    onClick={checkCensus}
+                    className="inline-flex items-center col-span-1 p-4 text-xl font-semibold text-white transition-colors duration-200 bg-green-500 border border-transparent shadow md:col-span-2 hover:bg-green-600 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none"
+                >
+                    <span className="w-full text-center">🗳️ Vota!</span>
+                </a>
                 <div className="col-span-1 px-4 py-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
                     Si disposes d'un certificat idCAT Certificat, pots
                     participar-hi durant la jornada electoral del 14 de febrer
