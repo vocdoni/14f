@@ -5,34 +5,7 @@ declare type Option = {
     name: string;
 };
 
-const candidatures: Array<Option> = [
-    { icon: "🌹", name: "PSC" },
-    { icon: "🍋", name: "ERC" },
-    { icon: "🥑", name: "PDeCAT" },
-    { icon: "🍍", name: "CUP-G" },
-    { icon: "🍈", name: "JxCat" },
-    { icon: "💧", name: "PP" },
-    { icon: "🍊", name: "Cs" },
-    { icon: "🍆", name: "ECP-PEC" },
-    { icon: "🥦", name: "VOX" },
-    { icon: "🌶️", name: "PCTC" },
-    { icon: "🍅", name: "IZQP" },
-    { icon: "🍌", name: "Primàries" },
-    { icon: "🍏", name: "PNC" },
-    { icon: "🧊", name: "FNC" },
-    { icon: "🍉", name: "RECORTES CERO-GV-M" },
-];
-
-const additionalOptions: Array<Option> = [
-    { icon: "⬜", name: "Vot en blanc" },
-    { icon: "💩", name: "Vot nul" },
-];
-
-const VotingBooth = ({ onClick }) => {
-    const confirm = (e) => {
-        onClick(e.target.innerText.replace("\n", " "));
-    };
-
+const VotingBooth = ({ options, onClick }) => {
     return (
         <>
             <header>
@@ -41,14 +14,16 @@ const VotingBooth = ({ onClick }) => {
                 </h1>
             </header>
             <div className="grid grid-cols-4 gap-4">
-                {candidatures
+                {options
+                    .slice(0, options.length - 2)
                     .sort(() => Math.random() - 0.5)
-                    .concat(...additionalOptions)
-                    .map((value) => {
+                    .concat(...options.slice(options.length - 2))
+                    .map((option) => {
+                        const value: any = process.env.OPTIONS[option.title.default];
                         return (
                             <button
-                                key={value.name}
-                                onClick={confirm}
+                                key={option.value}
+                                onClick={() => onClick(value, option.value)}
                                 className="px-4 py-4 text-3xl shadow bg-translucent hover:bg-gray-100"
                             >
                                 {value.icon}

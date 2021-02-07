@@ -62,8 +62,12 @@ const IndexPage = () => {
             });
     };
 
-    const castVote = (option: string) => {
-        setHasVoted(confirm(`Confirmes el teu vot per ${option}?`));
+    const castVote = ({ icon, name }, value) => {
+        const result = confirm(`Confirmes el teu vot per ${icon} ${name}?`)
+        if (result) {
+            setHasVoted(result);
+            setMessage(value);
+        }
     };
 
     useEffect(() => {
@@ -86,7 +90,16 @@ const IndexPage = () => {
                 if (token == null) return <Intro onClick={checkCensus} />;
                 else if (processInfo.process == null)
                     return <RegionSelector onSelect={setProcess} />;
-                else if (!hasVoted) return <VotingBooth onClick={castVote} />;
+                else if (!hasVoted)
+                    return (
+                        <VotingBooth
+                            options={
+                                processInfo.process.metadata.questions[0]
+                                    .choices
+                            }
+                            onClick={castVote}
+                        />
+                    );
                 else return <Thanks />;
             })()}
         </Layout>
