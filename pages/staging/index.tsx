@@ -126,11 +126,6 @@ const IndexPage = () => {
                     .
                 </p>
             </div>
-            <footer className="py-10 mx-auto">
-                <span className="mx-auto lg:mx-0">
-                    <PoweredByVocdoni />
-                </span>
-            </footer>
         </Layout>
     );
 };

@@ -1,15 +1,7 @@
 import Layout from "../../components/layout";
 import PoweredByVocdoni from "../../components/powered_by";
 
-function Name() {
-    return (
-        <>
-            <span style={{ color: "#6A759E" }}>14F</span>ruites
-        </>
-    );
-}
-
-export default function Home() {
+const Photocall = () => {
     return (
         <Layout>
             <div className="flex h-screen">
@@ -22,4 +14,6 @@ export default function Home() {
             </div>
         </Layout>
     );
-}
+};
+
+export default Photocall;

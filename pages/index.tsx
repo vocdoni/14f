@@ -1,7 +1,6 @@
 import Layout from "../components/layout";
-import PoweredByVocdoni from "../components/powered_by";
 
-function Name() {
+const Name = () => {
     return (
         <>
             <span className="font-bold" style={{ color: "#6A759E" }}>
@@ -10,9 +9,9 @@ function Name() {
             ruites
         </>
     );
-}
+};
 
-export default function Home() {
+const IndexPage = () => {
     return (
         <Layout>
             <header className="mt-8 mb-5 font-extrabold leading-none tracking-tight text-gray-900">
@@ -110,9 +109,8 @@ export default function Home() {
                     .
                 </p>
             </div>
-            <footer className="flex py-10">
-                <PoweredByVocdoni />
-            </footer>
         </Layout>
     );
-}
+};
+
+export default IndexPage;
