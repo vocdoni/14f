@@ -5,7 +5,7 @@ const lang = "ca"
 const DEVELOPMENT = process.env.NODE_ENV !== "production"
 
 const processes = {
-    'barcelona': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
+    'barcelona': '0x957ec50ca71004e660c1cb9f6700e0d865dce4e95bf086d6ecaf3c227e0d0ee6',
     'lleida': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
     'girona': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
     'tarragona': '0x3154ce39212ee5de64a8b51fbf43d3f61d4dbd8b4078f386507dfa581ba1afc0',
@@ -14,7 +14,6 @@ const processes = {
 module.exports = {
     LANG: lang,
     DEVELOPMENT,
-    PAGE_TITLE: "14 F",
 
     // BLOCKCHAIN
     ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || "goerli",
