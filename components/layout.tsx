@@ -124,7 +124,7 @@ class SvgBackground extends React.Component {
                     fontSize="32"
                     transform="rotate(30 540 51.2)"
                 >
-                    🌶
+                    🌶️
                 </text>
                 <text
                     x="17.75em"
