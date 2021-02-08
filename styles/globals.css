@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-    --vocdoni-primary: #6A759E;
+    --vocdoni-primary: #6a759e;
 }
 
 * {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
 }
 
-.bg-translucent {    
+.bg-translucent {
     background-color: rgba(255, 255, 255, 0.75);
 }
 
@@ -19,5 +19,20 @@
 }
 
 .bg-vocdoni {
+    @apply text-white;
     background-color: var(--vocdoni-primary);
+}
+
+button {
+    @apply p-4 transition-colors duration-200 border border-transparent shadow rounded-xl;
+}
+
+button[disabled] {
+    @apply text-gray-700 bg-gray-100 cursor-default;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+button.main-action {
+    @apply font-semibold text-white bg-green-500 hover:bg-green-600;
 }

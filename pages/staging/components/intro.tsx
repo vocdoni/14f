@@ -40,11 +40,11 @@ const Intro = ({ onClick }) => {
             <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
                 <button
                     onClick={onClick}
-                    className="inline-flex items-center col-span-1 p-4 text-xl font-semibold text-white transition-colors duration-200 bg-green-500 border border-transparent shadow md:col-span-2 hover:bg-green-600 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none"
+                    className="inline-flex items-center col-span-1 text-xl md:col-span-2 main-action"
                 >
-                    <span className="w-full text-center">🗳️ Vota!</span>
+                    <span className="w-full text-center">⏭️ Continua</span>
                 </button>
-                <div className="col-span-1 px-4 py-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
+                <div className="col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
                     Si disposes d'un certificat idCAT Certificat, pots
                     participar-hi durant la jornada electoral del 14 de febrer
                     de 2021. Consulta com aconseguir-ne un{" "}
