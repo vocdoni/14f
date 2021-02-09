@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Faker from "faker";
 
-var availableOptions = null;
+var availableOptions = [];
 
 function usePrevious<S>(value): S {
     const ref = useRef();
@@ -23,9 +23,8 @@ const VotingBooth = ({ options, onBackNavigation, onVote }) => {
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
 
-    if (availableOptions == null) {
-        availableOptions = options
-            .slice(0, options.length - 2)
+    if (availableOptions.length == 0 && options != null) {
+        availableOptions = options.slice(0, options.length - 2)
             .sort(() => Math.random() - 0.5)
             .concat(...options.slice(options.length - 2));
     }
