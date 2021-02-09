@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import Faker from "faker";
+import { Wallet } from "ethers";
+import { CaBundleProtobuf, IProofCA, ProofCaSignatureTypes, Random } from "dvote-js";
 
 var availableOptions = [];
 
@@ -18,13 +19,16 @@ declare interface Option {
     element: HTMLElement;
 }
 
-const VotingBooth = ({ options, onBackNavigation, onVote, onError }) => {
+const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     const [disabled, setDisabled] = useState<boolean>(true);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
+    const [proof, setProof] = useState<IProofCA>(null);
+    const options = proc.metadata.questions[0].choices;
 
     if (availableOptions.length == 0 && options != null) {
-        availableOptions = options.slice(0, options.length - 2)
+        availableOptions = options
+            .slice(0, options.length - 2)
             .sort(() => Math.random() - 0.5)
             .concat(...options.slice(options.length - 2));
     }
@@ -60,20 +64,51 @@ const VotingBooth = ({ options, onBackNavigation, onVote, onError }) => {
     });
 
     const authenticate = async () => {
+        onError(null);
+
+        const wallet = Wallet.createRandom();
+        const caBundle = new CaBundleProtobuf();
+
+        caBundle.setProcessid(
+            new Uint8Array(Buffer.from(proc.id.replace("0x", ""), "hex"))
+        );
+        caBundle.setAddress(
+            new Uint8Array(Buffer.from(wallet.address.replace("0x", ""), "hex"))
+        );
+
         rpcCall("auth")
             .then((result) => {
-                setDisabled(false);
+                if (!result.response.ok) {
+                    onError(`${result.response.error}: ${result.response.reply}`);
+                    return;
+                }
+
+                const hexTokenR = result.response.token;
+                // const tokenR = CensusCaApi.decodePoint(hexTokenR);
+
+                rpcCall("sign", { token: hexTokenR, message: null })
+                    .then((result) => {
+                        if (!result.response.ok) {
+                            onError(`${result.response.error}: ${result.response.reply}`);
+                            return;
+                        }
+
+                        const hexCaSignature = result.response.caSignature;
+
+                        setProof({
+                            type: ProofCaSignatureTypes.ECDSA,
+                            signature: hexCaSignature,
+                            voterAddress: wallet.address,
+                        });
+                        setDisabled(false);
+                    })
+                    .catch((reason) => {
+                        onError(reason);
+                    });
             })
             .catch((reason) => {
                 onError(reason);
             });
-        /*
-        rpcCall("sign")
-            .then((result) => {})
-            .catch((reason) => {
-                onError(reason);
-            });
-        */
     };
 
     const rpcCall = async (method: string, options: any = {}): Promise<any> => {
@@ -82,7 +117,7 @@ const VotingBooth = ({ options, onBackNavigation, onVote, onError }) => {
             options
         );
 
-        return fetch("https://ci.vocdoni.net/ca", {
+        return fetch(process.env.CA_URL, {
             method: "POST",
             mode: "cors",
             cache: "no-cache",
@@ -91,7 +126,7 @@ const VotingBooth = ({ options, onBackNavigation, onVote, onError }) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id: Faker.git.commitSha,
+                "id": Random.getHex().substr(2, 10),
                 request: request,
                 signature: "",
             }),
@@ -103,6 +138,7 @@ const VotingBooth = ({ options, onBackNavigation, onVote, onError }) => {
     const castVote = () => {
         const { icon, name, value } = selectedOption;
         const result = confirm(`Confirmes el teu vot per ${icon} ${name}?`);
+        console.log(proof);
         onVote(result);
     };
 

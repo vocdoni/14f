@@ -55,6 +55,11 @@ module.exports = {
         ? "https://bootnodes.vocdoni.net/gateways.dev.json"
         : process.env.BOOTNODES_URL ||
           "https://bootnodes.vocdoni.net/gateways.json",
+
+    // CA
+    CA_URL: DEVELOPMENT
+        ? "https://ci.vocdoni.net/ca"
+        : process.env.CA_URL || "https://idcat.ca.vocdoni.net/ca",
 };
 
 console.log("Building the frontend with ENV:", module.exports);

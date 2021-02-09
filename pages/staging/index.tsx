@@ -47,10 +47,7 @@ const IndexPage = () => {
                 else if (!hasVoted)
                     return (
                         <VotingBooth
-                            options={
-                                processInfo.process.metadata.questions[0]
-                                    .choices
-                            }
+                            proc={processInfo.process}
                             onVote={setHasVoted}
                             onBackNavigation={() => setRegion(null)}
                             onError={setMessage}
