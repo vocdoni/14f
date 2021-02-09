@@ -18,7 +18,7 @@ declare interface Option {
     element: HTMLElement;
 }
 
-const VotingBooth = ({ options, onBackNavigation, onVote }) => {
+const VotingBooth = ({ options, onBackNavigation, onVote, onError }) => {
     const [disabled, setDisabled] = useState<boolean>(true);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
@@ -60,19 +60,18 @@ const VotingBooth = ({ options, onBackNavigation, onVote }) => {
     });
 
     const authenticate = async () => {
-        setDisabled(false);
-        /* -- Temporary hack
         rpcCall("auth")
             .then((result) => {
-                setToken(result.response.token);
+                setDisabled(false);
             })
             .catch((reason) => {
-                setMessage(reason);
+                onError(reason);
             });
+        /*
         rpcCall("sign")
             .then((result) => {})
             .catch((reason) => {
-                setMessage(reason);
+                onError(reason);
             });
         */
     };
@@ -83,7 +82,7 @@ const VotingBooth = ({ options, onBackNavigation, onVote }) => {
             options
         );
 
-        return fetch("https://127.0.0.1:8443/auth", {
+        return fetch("https://ci.vocdoni.net/ca", {
             method: "POST",
             mode: "cors",
             cache: "no-cache",

@@ -6,6 +6,7 @@ import RegionSelector from "./components/region_selector";
 import VotingBooth from "./components/voting_booth";
 import Thanks from "./components/thanks";
 import { useProcess } from "@vocdoni/react-hooks";
+import Loader from "./components/loader";
 
 const IndexPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -38,11 +39,11 @@ const IndexPage = () => {
     return (
         <Layout>
             {(() => {
-                if (isLoading) return <h1>Loading...</h1>;
+                if (isLoading) return <Loader />;
                 else if (!hasEntered)
                     return <Intro onClick={() => setHasEntered(true)} />;
                 else if (region == null)
-                    return <RegionSelector onSelect={loadProcess} />;
+                    return <RegionSelector onSelect={loadProcess} onBackNavigation={() => setHasEntered(false)} />;
                 else if (!hasVoted)
                     return (
                         <VotingBooth
@@ -52,6 +53,7 @@ const IndexPage = () => {
                             }
                             onVote={setHasVoted}
                             onBackNavigation={() => setRegion(null)}
+                            onError={setMessage}
                         />
                     );
                 else return <Thanks />;
