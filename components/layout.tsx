@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-
 import { renderToStaticMarkup } from "react-dom/server";
 import PoweredByVocdoni from "./powered_by";
 
@@ -183,7 +182,7 @@ const FruitsBackground = () => {
     );
 };
 
-const Layout = ({ children }) => {
+const Layout = ({ page = undefined, children }) => {
     const svgString = renderToStaticMarkup(<FruitsBackground />);
 
     return (

@@ -10,7 +10,7 @@ const Name = () => {
 const Intro = ({ onClick }) => {
     return (
         <>
-            <header className="mt-8 mb-5 font-extrabold leading-none tracking-tight text-gray-900">
+            <header className="mt-16 mb-8 font-extrabold leading-none tracking-tight text-gray-900">
                 <a href="/">
                     <img
                         src="/logo_14F_alpha.png"
