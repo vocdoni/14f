@@ -3,7 +3,7 @@ import { NextComponentType, NextPageContext } from "next";
 import { AppInitialProps } from "next/app";
 import { Router } from "next/router";
 import { UsePoolProvider, UseProcessProvider } from "@vocdoni/react-hooks";
-import { EthNetworkID } from "dvote-js";
+import { EthNetworkID, VocdoniEnvironment } from 'dvote-js';
 import * as Sentry from "@sentry/browser";
 import { Integrations } from "@sentry/tracing";
 
@@ -26,9 +26,10 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
 const CustomBooth: FC<NextAppProps> = ({ Component, pageProps }) => {
     const bootnodeUri = process.env.BOOTNODES_URL;
     const networkId = process.env.ETH_NETWORK_ID as EthNetworkID;
+    const environment = process.env.ETH_NETWORK_ENVIRONMENT as VocdoniEnvironment;
 
     return (
-        <UsePoolProvider bootnodeUri={bootnodeUri} networkId={networkId}>
+        <UsePoolProvider bootnodeUri={bootnodeUri} networkId={networkId} environment={environment}>
             <UseProcessProvider>
                 <Component {...pageProps} />
             </UseProcessProvider>

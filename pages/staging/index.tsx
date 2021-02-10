@@ -16,11 +16,17 @@ const IndexPage = () => {
     const [processId, setProcessId] = useState<string>(null);
     const processInfo = useProcess(processId);
     const [hasVoted, setHasVoted] = useState<boolean>(false);
+    const [nullifier, setNullifier] = useState<string>(null);
 
     const loadProcess = (region: string) => {
         setRegion(region);
         setIsLoading(true);
         setProcessId(process.env.PROCESSES[region]);
+    };
+
+    const handleVote = (value: string) => {
+        setNullifier(value);
+        setHasVoted(true);
     };
 
     useEffect(() => {
@@ -30,8 +36,8 @@ const IndexPage = () => {
     }, [message]);
 
     useEffect(() => {
+        if (processInfo?.error != null) setMessage(processInfo.error);
         if (processInfo?.process == null) return;
-        if (processInfo.error != null) setMessage(processInfo.error);
 
         setIsLoading(false);
     }, [processInfo]);
@@ -48,12 +54,12 @@ const IndexPage = () => {
                     return (
                         <VotingBooth
                             proc={processInfo.process}
-                            onVote={setHasVoted}
+                            onVote={handleVote}
                             onBackNavigation={() => setRegion(null)}
                             onError={setMessage}
                         />
                     );
-                else return <Thanks />;
+                else return <Thanks nullifier={nullifier} />;
             })()}
         </Layout>
     );
