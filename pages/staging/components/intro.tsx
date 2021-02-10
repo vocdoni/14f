@@ -18,20 +18,20 @@ const Intro = ({ onClick }) => {
                     />
                 </a>
             </header>
-            <div className="max-w-screen-lg mb-6 font-medium leading-5 lg:leading-7 text-md sm:text-xl">
-                <p className="mb-3">
+            <div className="max-w-screen-lg mb-6 leading-5 lg:leading-7 sm:text-xl">
+                <p className="mb-6 text-3xl font-medium">
                     Benvinguts a <Name />, una prova pilot de vot digital que
                     s'executarà en paral·lel a les eleccions al Parlament de
                     Catalunya del 14 de febrer.
                 </p>
-                <p className="mb-3">
+                <p className="mb-6 text-xl font-light text-vocdoni">
                     Participar-hi identificant-te amb el teu idCAT Certificat,
                     seleccionant un partit, representat per emojis, i dipositant
                     el teu vot de forma anònima a l'urna virtual gràcies a la
                     tecnologia de signatura cega. Però recorda que aquest vot no
                     reemplaça el teu vot a les urnes 😉
                 </p>
-                <p>
+                <p className="text-xl font-light text-vocdoni">
                     Els resultats es faran públics després del tancament dels
                     col·legis electorals oficials i de forma gairebé immediata
                     en aquesta mateixa pàgina web.

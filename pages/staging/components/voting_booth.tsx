@@ -66,6 +66,9 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     const authenticate = async () => {
         onError(null);
 
+        setDisabled(false);
+        return;
+
         const wallet = Wallet.createRandom();
         const caBundle = new CaBundleProtobuf();
 

@@ -1,3 +1,5 @@
+import Container from "./container";
+
 const regions: Array<{ key: string; name: string }> = [
     { key: "barcelona", name: "Barcelona" },
     { key: "girona", name: "Girona" },
