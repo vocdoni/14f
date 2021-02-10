@@ -6,6 +6,7 @@ import RegionSelector from "./components/region_selector";
 import VotingBooth from "./components/voting_booth";
 import Thanks from "./components/thanks";
 import { useProcess } from "@vocdoni/react-hooks";
+import Loader from "./components/loader";
 
 const IndexPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -15,11 +16,17 @@ const IndexPage = () => {
     const [processId, setProcessId] = useState<string>(null);
     const processInfo = useProcess(processId);
     const [hasVoted, setHasVoted] = useState<boolean>(false);
+    const [nullifier, setNullifier] = useState<string>(null);
 
     const loadProcess = (region: string) => {
         setRegion(region);
         setIsLoading(true);
         setProcessId(process.env.PROCESSES[region]);
+    };
+
+    const handleVote = (value: string) => {
+        setNullifier(value);
+        setHasVoted(true);
     };
 
     useEffect(() => {
@@ -29,8 +36,8 @@ const IndexPage = () => {
     }, [message]);
 
     useEffect(() => {
+        if (processInfo?.error != null) setMessage(processInfo.error);
         if (processInfo?.process == null) return;
-        if (processInfo.error != null) setMessage(processInfo.error);
 
         setIsLoading(false);
     }, [processInfo]);
@@ -38,23 +45,21 @@ const IndexPage = () => {
     return (
         <Layout>
             {(() => {
-                if (isLoading) return <h1>Loading...</h1>;
+                if (isLoading) return <Loader />;
                 else if (!hasEntered)
                     return <Intro onClick={() => setHasEntered(true)} />;
                 else if (region == null)
-                    return <RegionSelector onSelect={loadProcess} />;
+                    return <RegionSelector onSelect={loadProcess} onBackNavigation={() => setHasEntered(false)} />;
                 else if (!hasVoted)
                     return (
                         <VotingBooth
-                            options={
-                                processInfo.process.metadata.questions[0]
-                                    .choices
-                            }
-                            onVote={setHasVoted}
+                            proc={processInfo.process}
+                            onVote={handleVote}
                             onBackNavigation={() => setRegion(null)}
+                            onError={setMessage}
                         />
                     );
-                else return <Thanks />;
+                else return <Thanks nullifier={nullifier} />;
             })()}
         </Layout>
     );

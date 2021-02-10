@@ -6,13 +6,13 @@ const DEVELOPMENT = process.env.NODE_ENV !== "production";
 
 const processes = {
     barcelona:
-        "0x8dfe30b158aabeb0c6fe4c1510a95e8faea007854510486ddcb8061abc8db610",
+        "0x5c4f944fb0b8bd7646a95237aa285e99c3b31a470e053f14cb1775b1d8845fac",
     lleida:
-        "0x8dfe30b158aabeb0c6fe4c1510a95e8faea007854510486ddcb8061abc8db610",
+        "0x5c4f944fb0b8bd7646a95237aa285e99c3b31a470e053f14cb1775b1d8845fac",
     girona:
-        "0x8dfe30b158aabeb0c6fe4c1510a95e8faea007854510486ddcb8061abc8db610",
+        "0x5c4f944fb0b8bd7646a95237aa285e99c3b31a470e053f14cb1775b1d8845fac",
     tarragona:
-        "0x8dfe30b158aabeb0c6fe4c1510a95e8faea007854510486ddcb8061abc8db610",
+        "0x5c4f944fb0b8bd7646a95237aa285e99c3b31a470e053f14cb1775b1d8845fac",
 };
 
 const optionsDefinitions = {
@@ -40,7 +40,8 @@ module.exports = {
     DEVELOPMENT,
 
     // BLOCKCHAIN
-    ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || "goerli",
+    ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || "xdai",
+    ETH_NETWORK_ENVIRONMENT: process.env.ETH_NETWORK_ENVIRONMENT || "stg",
     ETH_CHAIN_ID: process.env.ETH_CHAIN_ID
         ? parseInt(process.env.ETH_CHAIN_ID)
         : 5,
@@ -52,9 +53,14 @@ module.exports = {
 
     // GATEWAYS
     BOOTNODES_URL: DEVELOPMENT
-        ? "https://bootnodes.vocdoni.net/gateways.dev.json"
+        ? "https://bootnodes.vocdoni.net/gateways.stg.json"
         : process.env.BOOTNODES_URL ||
           "https://bootnodes.vocdoni.net/gateways.json",
+
+    // CA
+    CA_URL: DEVELOPMENT
+        ? "https://ci.vocdoni.net/ca"
+        : process.env.CA_URL || "https://idcat.ca.vocdoni.net/ca",
 };
 
 console.log("Building the frontend with ENV:", module.exports);

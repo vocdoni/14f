@@ -1,3 +1,5 @@
+import Container from "./container";
+
 const regions: Array<{ key: string; name: string }> = [
     { key: "barcelona", name: "Barcelona" },
     { key: "girona", name: "Girona" },
@@ -5,7 +7,7 @@ const regions: Array<{ key: string; name: string }> = [
     { key: "tarragona", name: "Tarragona" },
 ];
 
-const RegionSelector = ({ onSelect }) => {
+const RegionSelector = ({ onSelect, onBackNavigation }) => {
     return (
         <>
             <header>
@@ -23,6 +25,14 @@ const RegionSelector = ({ onSelect }) => {
                         {value.name}
                     </button>;
                 })}
+            </div>
+            <div className="flex justify-end px-8">
+                <button
+                    className="bg-translucent hover:bg-gray-100"
+                    onClick={onBackNavigation}
+                >
+                    ⏪ Anar a l'inici
+                </button>
             </div>
         </>
     );

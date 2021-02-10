@@ -24,7 +24,7 @@
 }
 
 button {
-    @apply p-4 transition-colors duration-200 border border-transparent shadow rounded-xl;
+    @apply p-4 transition-colors duration-200 border border-transparent shadow-lg rounded-xl;
 }
 
 button[disabled] {

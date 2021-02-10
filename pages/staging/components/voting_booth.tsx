@@ -1,5 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import Faker from "faker";
+import { utils, Wallet } from "ethers";
+import {
+    CaBundleProtobuf,
+    CensusCaApi,
+    GatewayPool,
+    IProofCA,
+    ProofCaSignatureTypes,
+    Random,
+    VotingApi,
+} from "dvote-js";
+import { usePool } from "@vocdoni/react-hooks";
 
 var availableOptions = [];
 
@@ -18,13 +28,18 @@ declare interface Option {
     element: HTMLElement;
 }
 
-const VotingBooth = ({ options, onBackNavigation, onVote }) => {
+const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     const [disabled, setDisabled] = useState<boolean>(true);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
+    const [proof, setProof] = useState<IProofCA>(null);
+    const options = proc.metadata.questions[0].choices;
+    const poolPromise = usePool();
+    const [wallet, setWallet] = useState<Wallet>(null);
 
     if (availableOptions.length == 0 && options != null) {
-        availableOptions = options.slice(0, options.length - 2)
+        availableOptions = options
+            .slice(0, options.length - 2)
             .sort(() => Math.random() - 0.5)
             .concat(...options.slice(options.length - 2));
     }
@@ -60,21 +75,69 @@ const VotingBooth = ({ options, onBackNavigation, onVote }) => {
     });
 
     const authenticate = async () => {
-        setDisabled(false);
-        /* -- Temporary hack
+        onError(null);
+
+        const wallet = Wallet.createRandom();
+        const caBundle = new CaBundleProtobuf();
+
+        setWallet(wallet);
+        caBundle.setProcessid(
+            new Uint8Array(Buffer.from(proc.id.replace("0x", ""), "hex"))
+        );
+        caBundle.setAddress(
+            new Uint8Array(Buffer.from(wallet.address.replace("0x", ""), "hex"))
+        );
+
         rpcCall("auth")
             .then((result) => {
-                setToken(result.response.token);
+                if (!result.response.ok) {
+                    onError(
+                        `${result.response.error}: ${result.response.reply}`
+                    );
+                    return;
+                }
+
+                const hexTokenR = result.response.token;
+                const tokenR = CensusCaApi.decodePoint(hexTokenR);
+
+                const hexCaBundle = utils.hexlify(caBundle.serializeBinary());
+                const hexCaHashedBundle = utils
+                    .keccak256(hexCaBundle)
+                    .substr(2);
+                const { hexBlinded, userSecretData } = CensusCaApi.blind(
+                    hexCaHashedBundle,
+                    tokenR
+                );
+
+                rpcCall("sign", { token: hexTokenR, messageHash: hexBlinded })
+                    .then((result) => {
+                        if (!result.response.ok) {
+                            onError(
+                                `${result.response.error}: ${result.response.reply}`
+                            );
+                            return;
+                        }
+
+                        const hexBlindSignature = result.response.caSignature;
+                        const unblindedSignature = CensusCaApi.unblind(
+                            hexBlindSignature,
+                            userSecretData
+                        );
+
+                        setProof({
+                            type: ProofCaSignatureTypes.ECDSA_BLIND,
+                            signature: unblindedSignature,
+                            voterAddress: wallet.address,
+                        });
+                        setDisabled(false);
+                    })
+                    .catch((reason) => {
+                        onError(reason);
+                    });
             })
             .catch((reason) => {
-                setMessage(reason);
+                onError(reason);
             });
-        rpcCall("sign")
-            .then((result) => {})
-            .catch((reason) => {
-                setMessage(reason);
-            });
-        */
     };
 
     const rpcCall = async (method: string, options: any = {}): Promise<any> => {
@@ -83,7 +146,7 @@ const VotingBooth = ({ options, onBackNavigation, onVote }) => {
             options
         );
 
-        return fetch("https://127.0.0.1:8443/auth", {
+        return fetch(process.env.CA_URL, {
             method: "POST",
             mode: "cors",
             cache: "no-cache",
@@ -92,7 +155,7 @@ const VotingBooth = ({ options, onBackNavigation, onVote }) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id: Faker.git.commitSha,
+                id: Random.getHex().substr(2, 10),
                 request: request,
                 signature: "",
             }),
@@ -101,10 +164,46 @@ const VotingBooth = ({ options, onBackNavigation, onVote }) => {
         });
     };
 
-    const castVote = () => {
+    const castVote = async () => {
         const { icon, name, value } = selectedOption;
-        const result = confirm(`Confirmes el teu vot per ${icon} ${name}?`);
-        onVote(result);
+        var result = confirm(`Confirmes el teu vot per ${icon} ${name}?`);
+        if (result) {
+            const choices = [value];
+            const pool = (poolPromise.pool as unknown) as GatewayPool;
+            const processKeys = proc.parameters.envelopeType.hasEncryptedVotes
+                ? await VotingApi.getProcessKeys(proc.id, pool)
+                : null;
+
+            const { envelope, signature } = proc.parameters.envelopeType
+                .hasEncryptedVotes
+                ? await VotingApi.packageSignedEnvelope({
+                      censusOrigin: proc.parameters.censusOrigin,
+                      votes: choices,
+                      censusProof: proof,
+                      processId: proc.id,
+                      walletOrSigner: wallet,
+                      processKeys,
+                  })
+                : await VotingApi.packageSignedEnvelope({
+                      censusOrigin: proc.parameters.censusOrigin,
+                      votes: choices,
+                      censusProof: proof,
+                      processId: proc.id,
+                      walletOrSigner: wallet,
+                  });
+
+            VotingApi.submitEnvelope(envelope, signature, pool)
+                .then(() => {
+                    const nullifier = VotingApi.getSignedVoteNullifier(
+                        wallet.address,
+                        proc.id
+                    );
+                    onVote(nullifier);
+                })
+                .catch((err) => {
+                    onError(err);
+                });
+        }
     };
 
     useEffect(() => {
