@@ -33,7 +33,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
     const [proof, setProof] = useState<IProofCA>(null);
-    const options = proc.metadata.questions[0].choices;
+    const options = proc?.metadata.questions[0].choices;
     const poolPromise = usePool();
     const [wallet, setWallet] = useState<Wallet>(null);
 
