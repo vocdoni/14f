@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import { renderToStaticMarkup } from "react-dom/server";
-import PoweredByVocdoni from "./powered_by";
 
 const FruitsBackground = () => {
     return (
@@ -223,9 +222,6 @@ const Layout = ({ page = undefined, children }) => {
             </Head>
             <main className="flex flex-col flex-1 w-3/5 max-w-screen-lg mx-auto">
                 <div className="flex-1">{children}</div>
-                <footer className="flex py-10">
-                    <PoweredByVocdoni />
-                </footer>
             </main>
             <style jsx>{`
                 #layout {

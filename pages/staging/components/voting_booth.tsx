@@ -52,6 +52,19 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
         </div>
     );
 
+    const content = (value, fallback) => {
+        if (value == undefined) {
+            return <>
+                <div className="pt-1 text-xs">{fallback}</div>
+            </>
+        }
+
+        return <>
+            {value.icon}
+            <div className="pt-1 text-xs">{value.name}</div>
+        </>;
+    }
+
     const buttons = availableOptions.map((option) => {
         const value: any = process.env.OPTIONS[option.title.default];
         return (
@@ -68,8 +81,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                 }
                 className="text-3xl bg-translucent hover:bg-gray-100"
             >
-                {value.icon}
-                <div className="pt-1 text-xs">{value.name}</div>
+                {content(value, option.title.default)}
             </button>
         );
     });
