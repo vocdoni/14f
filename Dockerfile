@@ -9,7 +9,7 @@ ARG ETH_CHAIN_ID
 ENV ETH_CHAIN_ID=${ETH_CHAIN_ID}
 ARG BLOCK_TIME
 ENV BLOCK_TIME=${BLOCK_TIME}
-ARG BOOTNODES_URL="https://bootnodes.vocdoni.net/gateways.dev.json"
+ARG BOOTNODES_URL="https://bootnodes.vocdoni.net/gateways.stg.json"
 ENV BOOTNODES_URL=${BOOTNODES_URL}
 
 ADD . /app

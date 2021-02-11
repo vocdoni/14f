@@ -44,7 +44,7 @@ module.exports = {
     ETH_NETWORK_ENVIRONMENT: process.env.ETH_NETWORK_ENVIRONMENT || "stg",
     ETH_CHAIN_ID: process.env.ETH_CHAIN_ID
         ? parseInt(process.env.ETH_CHAIN_ID)
-        : 5,
+        : 100,
 
     // VOCHAIN
     BLOCK_TIME: process.env.BLOCK_TIME || "12",
