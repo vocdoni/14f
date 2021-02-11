@@ -6,13 +6,13 @@ const DEVELOPMENT = process.env.NODE_ENV !== "production";
 
 const processes = {
     barcelona:
-        "0xc21574de3b207bb9eb3e1f8a79d1a16ce74b357ec3f055f0d819b8072399865c",
+        "0x89901a881673f155e98ac984dac762063b7e6d6e59635558fe9b5e4fbf7a4b10",
     lleida:
-        "0xc21574de3b207bb9eb3e1f8a79d1a16ce74b357ec3f055f0d819b8072399865c",
+        "0x89901a881673f155e98ac984dac762063b7e6d6e59635558fe9b5e4fbf7a4b10",
     girona:
-        "0xc21574de3b207bb9eb3e1f8a79d1a16ce74b357ec3f055f0d819b8072399865c",
+        "0x89901a881673f155e98ac984dac762063b7e6d6e59635558fe9b5e4fbf7a4b10",
     tarragona:
-        "0xc21574de3b207bb9eb3e1f8a79d1a16ce74b357ec3f055f0d819b8072399865c",
+        "0x89901a881673f155e98ac984dac762063b7e6d6e59635558fe9b5e4fbf7a4b10",
 };
 
 const optionsDefinitions = {
