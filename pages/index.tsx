@@ -14,7 +14,7 @@ const Name = () => {
 const IndexPage = () => {
     return (
         <Layout>
-            <header className="mt-8 mb-5 font-extrabold leading-none tracking-tight text-gray-900">
+            <header className="mt-16 mb-8 font-extrabold leading-none tracking-tight text-gray-900">
                 <a href="/">
                     <img
                         src="/logo_14F_alpha.png"
@@ -22,24 +22,25 @@ const IndexPage = () => {
                     />
                 </a>
             </header>
-            <div className="max-w-screen-lg mb-6 font-medium leading-5 lg:leading-7 text-md sm:text-xl">
-                <p className="mb-3">
-                    Benvinguts a <Name />, una prova pilot de vot digital que
+            <div className="max-w-screen-lg mb-6 leading-5 lg:leading-7 sm:text-xl">
+                <p className="mb-6 text-3xl font-medium">
+                    Benvinguts a <Name />, un sondeig electoral per internet que
                     s'executarà en paral·lel a les eleccions al Parlament de
-                    Catalunya del 14 de febrer.
+                    Catalunya del 14 de febrer, utilitzant la tecnologia de
+                    participació digital de Vocdoni.
                 </p>
-                <p className="mb-3">
+                <p className="mb-6 text-xl font-light text-vocdoni">
                     Durant la jornada electoral podràs participar-hi
                     identificant-te amb el teu idCAT Certificat, seleccionant un
-                    partit, representat per emojis, i dipositant el teu vot de
-                    forma anònima a l'urna virtual gràcies a la tecnologia de
-                    signatura cega. Però recorda que aquest vot no reemplaça el
-                    teu vot a les urnes 😉
+                    partit, representat per emojis, i seleccionant la teva
+                    opció. Aquesta quedarà registrada de forma anònima anònima
+                    gràcies a la tecnologia de signatura cega. Però recorda que
+                    aquest sondeig no reemplaça el teu vot a les urnes 😉
                 </p>
-                <p>
-                    Els resultats es faran públics el 14 de febrer després del
-                    tancament dels col·legis electorals oficials i de forma
-                    gairebé immediata en aquesta mateixa pàgina web.
+                <p className="text-xl font-light text-vocdoni">
+                    Els resultats es faran públics quasi bé immediatament
+                    després del tancament dels col·legis electorals oficials.
+                    Podràs consultar-los a la mateixa pàgina web del sondeig.
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
@@ -50,7 +51,7 @@ const IndexPage = () => {
                 >
                     <span className="w-full text-center">✉️ Avisa'm!</span>
                 </a>
-                <div className="col-span-1 px-4 py-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
+                <div className="col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
                     Si disposes d'un certificat idCAT Certificat, podràs
                     participar-hi durant la jornada electoral del 14 de febrer
                     de 2021. Consulta com aconseguir-ne un{" "}
@@ -66,16 +67,12 @@ const IndexPage = () => {
             </div>
             <div className="text-xs leading-4 text-gray-600">
                 <p className="mb-2">
-                    Aquesta votació està organitzada per Vocdoni i no té
-                    vinculació amb les eleccions al Parlament. Es tracta d'un
-                    experiment que no compta amb un disseny integral que
-                    compleixi tots els requisits d'una votació oficial, com
-                    podrien ser un sistema avançat d'identificació o mecanismes
-                    contra la coerció del vot.{" "}
+                    Aquest sondeig electrònic està organitzat per Vocdoni i no
+                    té vinculació amb les eleccions al Parlament.
                 </p>
                 <p className="mb-2">
                     El sistema implementa un mecanisme criptogràfic experimental
-                    anomenat "signatura cega" que proporciona al votant la
+                    anomenat "signatura cega" que proporciona al participant la
                     possibilitat d'utilitzar certificats tipus idCAT amb el grau
                     d'anonimat necessària per un sondeig d'aquest tipus. No
                     obstant en unes eleccions oficials es requereixen més
@@ -98,7 +95,8 @@ const IndexPage = () => {
                     >
                         aquí
                     </a>{" "}
-                    i la informació tècnica{" "}
+                    i la informació tècnica sobre la tecnologia de vot digital
+                    que ho possibilita{" "}
                     <a
                         href="https://www.notion.so/Info-t-cnica-Votaci-amb-certificat-digital-b222379b80894380b6047036deedef5c"
                         target="_blank"

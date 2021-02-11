@@ -232,7 +232,8 @@ const Layout = ({ page = undefined, children }) => {
                     min-height: 100vh;
                     background-image: url(/14f.svg);
                     background-attachment: fixed;
-                    background-position: -70% 25%;
+                    background-position: 35em -12.5em;
+                    background-size: cover;
                     background-repeat: no-repeat;
                 }
             `}</style>
