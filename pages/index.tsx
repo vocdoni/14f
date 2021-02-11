@@ -33,7 +33,7 @@ const IndexPage = () => {
                     Durant la jornada electoral podràs participar-hi
                     identificant-te amb el teu idCAT Certificat, seleccionant un
                     partit, representat per emojis, i seleccionant la teva
-                    opció. Aquesta quedarà registrada de forma anònima anònima
+                    opció. Aquesta quedarà registrada de forma anònima
                     gràcies a la tecnologia de signatura cega. Però recorda que
                     aquest sondeig no reemplaça el teu vot a les urnes 😉
                 </p>
