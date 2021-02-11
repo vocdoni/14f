@@ -25,7 +25,7 @@
         "@vocdoni/react-hooks": "^0.3.0",
         "@zeit/next-source-maps": "^0.0.3",
         "autoprefixer": "^10.2.4",
-        "dvote-js": "^0.25.0",
+        "dvote-js": "^0.25.1",
         "ethers": "^5.0.25",
         "faker": "^5.3.1",
         "next": "^10.0.6",
