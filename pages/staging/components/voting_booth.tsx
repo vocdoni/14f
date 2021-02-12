@@ -105,10 +105,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
         rpcCall("auth")
             .then((result) => {
                 if (!result.response.ok) {
-                    onError(
-                        `${result.response.error}: ${result.response.reply}`
-                    );
-                    return;
+                    throw new Error(`${result.response.error}: ${result.response.reply}`);
                 }
 
                 const hexTokenR = result.response.token;
@@ -123,13 +120,10 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                     tokenR
                 );
 
-                rpcCall("sign", { token: hexTokenR, messageHash: hexBlinded })
+                return rpcCall("sign", { token: hexTokenR, messageHash: hexBlinded })
                     .then((result) => {
                         if (!result.response.ok) {
-                            onError(
-                                `${result.response.error}: ${result.response.reply}`
-                            );
-                            return;
+                            throw new Error(`${result.response.error}: ${result.response.reply}`)
                         }
 
                         const hexBlindSignature = result.response.caSignature;
@@ -145,12 +139,9 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                         });
                         setDisabled(false);
                     })
-                    .catch((reason) => {
-                        onError(reason);
-                    });
             })
-            .catch((reason) => {
-                onError(reason);
+            .catch((reason: Error) => {
+                onError(reason?.message || reason?.toString?.() || reason);
             });
     };
 

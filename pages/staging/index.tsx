@@ -11,7 +11,7 @@ import Loader from "./components/loader";
 const IndexPage = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>(null);
+    const [message, setMessage] = useState<string | Error>(null);
     const [hasEntered, setHasEntered] = useState<boolean>(false);
     const [region, setRegion] = useState<string>(null);
     const [processId, setProcessId] = useState<string>(null);
@@ -33,7 +33,16 @@ const IndexPage = () => {
     useEffect(() => {
         if (message == null) return;
 
-        alert(message);
+        let msg: string
+        if ((message as any) instanceof Error) msg = (message as any).message
+        else if (typeof message != "string") return alert("Hi ha hagut un error en connectar amb la xarxa")
+        else msg = message
+
+        if (msg.includes("certificate already used")) return alert("El teu certificat ja ha estat utilitzat per aquest procés")
+        else if (msg.includes("Could not fetch the process")) return alert("No es poden carregar les dades del procés. Intenta-ho de nou en uns minuts.")
+
+        alert("Hi ha hagut un error en processar la petició");
+        console.error(msg);
     }, [message]);
 
     useEffect(() => {
