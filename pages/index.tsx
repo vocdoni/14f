@@ -90,7 +90,7 @@ const IndexPage = () => {
                 <p>
                     Per saber-ne més consulta la nota de premsa{" "}
                     <a
-                        href="https://blog.vocdoni.io/catalunya-acollira-una-primera-prova-de-vot-digital-paral-lela-a-les-eleccions-del-14f/"
+                        href="https://www.notion.so/Catalunya-acollir-el-primer-sondeig-per-internet-de-les-eleccions-del-14F-amb-tecnologia-blockchain-699ee7eb98b84a11926b1e1676011d12"
                         target="_blank"
                         className="underline"
                     >

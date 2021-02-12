@@ -221,7 +221,7 @@ const Layout = ({ page = undefined, children }) => {
                 />
             </Head>
             <main className="flex flex-col flex-1 w-3/5 max-w-screen-lg mx-auto">
-                <div className="flex-1">{children}</div>
+                {children}
             </main>
             <style jsx>{`
                 #layout {

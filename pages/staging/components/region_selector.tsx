@@ -9,13 +9,16 @@ const regions: Array<{ key: string; name: string }> = [
 
 const RegionSelector = ({ onSelect, onBackNavigation }) => {
     return (
-        <>
+        <Container>
             <header>
-                <h1 className="mt-8 mb-6 text-lg font-bold leading-none tracking-tight text-center text-gray-900 sm:text-3xl lg:text-4xl sm:mt-12 sm:mb-8">
+                <div className="mb-2 font-light text-center mt-7 text-vocdoni text-md lg:text-lg">
+                    Pas 01 de 02
+                </div>
+                <h1 className="mb-5 text-3xl font-bold leading-none tracking-tight text-center text-gray-900 lg:text-4xl sm:mb-7">
                     Abans, quina és la teva circumscripció electoral?
                 </h1>
             </header>
-            <div className="grid grid-cols-2 gap-4 px-4 text-2xl sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8">
+            <div className="grid grid-cols-1 gap-4 text-2xl mb-14 sm:mb-20 xl:mb-8">
                 {regions.map((value) => {
                     return <button
                         key={value.key}
@@ -26,7 +29,7 @@ const RegionSelector = ({ onSelect, onBackNavigation }) => {
                     </button>;
                 })}
             </div>
-            <div className="flex justify-end px-8">
+            <div className="flex justify-end">
                 <button
                     className="bg-translucent hover:bg-gray-100"
                     onClick={onBackNavigation}
@@ -34,7 +37,7 @@ const RegionSelector = ({ onSelect, onBackNavigation }) => {
                     ⏪ Anar a l'inici
                 </button>
             </div>
-        </>
+        </Container>
     );
 };
 
