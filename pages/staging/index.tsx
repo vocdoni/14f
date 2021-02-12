@@ -40,7 +40,7 @@ const IndexPage = () => {
     };
 
     useEffect(() => {
-        if (message == null) return;
+        if (message === null) return;
 
         let msg: string
         if ((message as any) instanceof Error) msg = (message as any).message
@@ -49,6 +49,7 @@ const IndexPage = () => {
 
         if (msg.includes("certificate already used")) return alert("El teu certificat ja ha estat utilitzat per aquest procés")
         else if (msg.includes("Could not fetch the process")) return alert("No es poden carregar les dades del procés. Intenta-ho de nou en uns minuts.")
+        else if (msg.includes("nullifier error")) return alert("Hi ha hagut un problema enregistrant el teu vot")
 
         alert("Hi ha hagut un error en processar la petició");
         console.error(msg);

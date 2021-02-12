@@ -201,12 +201,19 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                 });
 
             VotingApi.submitEnvelope(envelope, signature, pool)
-                .then(() => {
+                .then(async () => {
                     const nullifier = VotingApi.getSignedVoteNullifier(
                         wallet.address,
                         proc.id
                     );
-                    onVote(nullifier);
+                    for (let i = 0; i < 10; i++) {
+                        const { registered, date } = await VotingApi.getEnvelopeStatus(proc.id, nullifier, pool)
+                        if (registered) {
+                            return onVote(nullifier)
+                        }
+                        await new Promise((resolve) => setTimeout(resolve, Math.floor(Number(process.env.BLOCK_TIME) * 500)))
+                    }
+                    throw new Error("check nullifier error")
                 })
                 .catch((err) => {
                     onError(err);
