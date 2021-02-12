@@ -9,7 +9,7 @@ import {
     Random,
     VotingApi,
 } from "dvote-js";
-import { usePool } from "@vocdoni/react-hooks";
+import { ProcessInfo, usePool } from "@vocdoni/react-hooks";
 import Container from "./container";
 import { Spinner } from "./loader";
 
@@ -23,6 +23,32 @@ function usePrevious<S>(value): S {
     return ref.current;
 }
 
+function useCachedWallet() {
+    const [wallet, setWallet] = useState<Wallet>(localStorage.getItem("ephemeral-privk") ?
+        new Wallet(localStorage.getItem("ephemeral-privk")) : Wallet.createRandom())
+
+    const clearWallet = () => {
+        localStorage.removeItem("ephemeral-privk")
+    }
+
+    return { wallet, clearWallet }
+}
+
+function useCachedProof() {
+    const [proof, setProof] = useState<IProofCA>(JSON.parse(localStorage.getItem("ephemeral-proof") || "{}"))
+
+    const storeCaProof = (proof: IProofCA) => {
+        localStorage.setItem("ephemeral-proof", JSON.stringify(proof))
+        setProof(proof)
+    }
+    const clearProof = () => {
+        localStorage.removeItem("ephemeral-proof")
+        setProof(null)
+    }
+
+    return { proof, storeCaProof, clearProof }
+}
+
 declare interface Option {
     icon: string;
     name: string;
@@ -30,15 +56,15 @@ declare interface Option {
     element: HTMLElement;
 }
 
-const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
+const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc: ProcessInfo, stats: any, onBackNavigation: () => void, onVote: (value: string) => void, onError: (err: string | Error) => void }) => {
     const [disabled, setDisabled] = useState<boolean>(true);
     const [authenticating, setAuthenticating] = useState<boolean>(false);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
-    const [proof, setProof] = useState<IProofCA>(null);
+    const { proof, storeCaProof, clearProof } = useCachedProof()
+    const { wallet, clearWallet } = useCachedWallet()
     const options = proc?.metadata.questions[0].choices;
     const poolPromise = usePool();
-    const [wallet, setWallet] = useState<Wallet>(null);
     const [voting, setVoting] = useState<boolean>(false);
 
     if (availableOptions.length == 0 && options != null) {
@@ -94,10 +120,8 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
         setAuthenticating(true);
         onError(null);
 
-        const wallet = Wallet.createRandom();
         const caBundle = new CaBundleProtobuf();
 
-        setWallet(wallet);
         caBundle.setProcessid(
             new Uint8Array(Buffer.from(proc.id.replace("0x", ""), "hex"))
         );
@@ -135,11 +159,12 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                             userSecretData
                         );
 
-                        setProof({
+                        const caProof = {
                             type: ProofCaSignatureTypes.ECDSA_BLIND,
                             signature: unblindedSignature,
                             voterAddress: wallet.address,
-                        });
+                        }
+                        storeCaProof(caProof);
                         setDisabled(false);
                     })
             })
@@ -212,6 +237,8 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                     for (let i = 0; i < 10; i++) {
                         const { registered, date } = await VotingApi.getEnvelopeStatus(proc.id, nullifier, pool)
                         if (registered) {
+                            clearWallet()
+                            clearProof()
                             return onVote(nullifier)
                         }
                         await new Promise((resolve) => setTimeout(resolve, Math.floor(Number(process.env.BLOCK_TIME) * 500)))
@@ -275,8 +302,8 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                                 <span>
                                     <span className='vote-icon'>🗳️</span> Vota!
                                 </span>
-                        }
-                    </button>
+                            }
+                        </button>
                 }
             </div>
         </Container>
