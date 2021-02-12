@@ -34,7 +34,7 @@ const RegionSelector = ({ onSelect, onBackNavigation }) => {
                     className="bg-translucent hover:bg-gray-100"
                     onClick={onBackNavigation}
                 >
-                    ⏪ Anar a l'inici
+                    ⬅️ Anar a l'inici
                 </button>
             </div>
         </Container>

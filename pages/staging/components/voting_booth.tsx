@@ -11,7 +11,6 @@ import {
 } from "dvote-js";
 import { usePool } from "@vocdoni/react-hooks";
 import Container from "./container";
-import Faker from 'faker';
 import { Spinner } from "./loader";
 
 var availableOptions = [];
@@ -33,6 +32,7 @@ declare interface Option {
 
 const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     const [disabled, setDisabled] = useState<boolean>(true);
+    const [authenticating, setAuthenticating] = useState<boolean>(false);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
     const [proof, setProof] = useState<IProofCA>(null);
@@ -83,7 +83,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                         element: e.currentTarget,
                     })
                 }
-                className="text-3xl bg-translucent hover:bg-gray-100"
+                className="text-3xl bg-translucent hover:bg-gray-100 hover:text-black"
             >
                 {content(value, option.title.default)}
             </button>
@@ -91,6 +91,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     });
 
     const authenticate = async () => {
+        setAuthenticating(true);
         onError(null);
 
         const wallet = Wallet.createRandom();
@@ -144,7 +145,8 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
             })
             .catch((reason: Error) => {
                 onError(reason?.message || reason?.toString?.() || reason);
-            });
+            })
+            .finally(() => setAuthenticating(false));
     };
 
     const rpcCall = async (method: string, options: any = {}): Promise<any> => {
@@ -246,7 +248,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
             <div className="grid grid-cols-4 gap-4 mb-6">{buttons}</div>
             <div className="flex justify-between">
                 <button
-                    className="bg-translucent hover:bg-gray-100 float-left"
+                    className="float-left bg-translucent hover:bg-gray-100"
                     onClick={onBackNavigation}
                 >
                     ⬅️ Canvia de circumscripció
@@ -254,14 +256,19 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                 {
                     disabled ?
                     <button
-                        className="ml-4 main-action"
+                        disabled={authenticating}
+                        className="ml-4 main-action w-44"
                         onClick={authenticate}
                     >
-                        👋 Identifica't
+                        {
+                            authenticating ?
+                                <span><Spinner /> Identificant...</span> :
+                                <span>👋 Identifica't</span>
+                        }
                     </button> :
                     <button
                         disabled={selectedOption == null || voting}
-                        className="ml-4 bg-translucent main-action"
+                        className="ml-4 bg-translucent main-action w-44"
                         onClick={castVote}
                     >
                         {

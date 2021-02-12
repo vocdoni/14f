@@ -1,4 +1,6 @@
-import PoweredByVocdoni from '../../../components/powered_by';
+import { usePool } from "@vocdoni/react-hooks";
+import PoweredByVocdoni from "../../../components/powered_by";
+import { Spinner } from "./loader";
 
 const Name = () => {
     return (
@@ -10,6 +12,8 @@ const Name = () => {
 };
 
 const Intro = ({ onClick }) => {
+    const { pool, poolPromise, loading, error } = usePool();
+
     return (
         <>
             <header className="mt-16 mb-8 font-extrabold leading-none tracking-tight text-gray-900">
@@ -31,9 +35,9 @@ const Intro = ({ onClick }) => {
                     Durant la jornada electoral podràs participar-hi
                     identificant-te amb el teu idCAT Certificat, seleccionant un
                     partit, representat per emojis, i seleccionant la teva
-                    opció. Aquesta quedarà registrada de forma anònima
-                    gràcies a la tecnologia de signatura cega. Però recorda que
-                    aquest sondeig no reemplaça el teu vot a les urnes 😉
+                    opció. Aquesta quedarà registrada de forma anònima gràcies a
+                    la tecnologia de signatura cega. Però recorda que aquest
+                    sondeig no reemplaça el teu vot a les urnes 😉
                 </p>
                 <p className="text-xl font-light text-vocdoni">
                     Els resultats es faran públics quasi bé immediatament
@@ -43,23 +47,32 @@ const Intro = ({ onClick }) => {
             </div>
             <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
                 <button
+                    disabled={loading}
                     onClick={onClick}
                     className="inline-flex items-center col-span-1 text-xl md:col-span-2 main-action"
                 >
-                    <span className="w-full text-center">⏭️ Continua</span>
+                    {loading ? (
+                        <span className="w-full text-center">
+                            <Spinner /> Carregant...
+                        </span>
+                    ) : (
+                        <span className="w-full text-center">➡️ Continua</span>
+                    )}
                 </button>
-                <div className="col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
-                    Si disposes d'un certificat idCAT Certificat, podràs
-                    participar-hi durant la jornada electoral del 14 de febrer
-                    de 2021. Consulta com aconseguir-ne un{" "}
-                    <a
-                        className="underline"
-                        href="https://www.idcat.cat/idcat/ciutada/menu.do"
-                        target="_blank"
-                    >
-                        aquí
-                    </a>
-                    .
+                <div className="flex flex-col col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
+                    <div className="my-auto">
+                        Si disposes d'un certificat idCAT Certificat, podràs
+                        participar-hi durant la jornada electoral del 14 de
+                        febrer de 2021. Consulta com aconseguir-ne un{" "}
+                        <a
+                            className="underline"
+                            href="https://www.idcat.cat/idcat/ciutada/menu.do"
+                            target="_blank"
+                        >
+                            aquí
+                        </a>
+                        .
+                    </div>
                 </div>
             </div>
             <div className="text-xs leading-4 text-gray-600">
