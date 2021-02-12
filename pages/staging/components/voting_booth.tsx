@@ -264,7 +264,13 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                         className="ml-4 bg-translucent main-action"
                         onClick={castVote}
                     >
-                        { voting ? <span><Spinner /> Votant...</span> : '🗳️ Vota!' }
+                        {
+                            voting ?
+                                <span><Spinner /> Votant...</span> :
+                                <span>
+                                    <span className='vote-icon'>🗳️</span> Vota!
+                                </span>
+                        }
                     </button>
                 }
             </div>

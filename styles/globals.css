@@ -40,3 +40,7 @@ button.main-action {
 span.animate-spin {
     display: inline-block;
 }
+
+span.vote-icon {
+    filter: hue-rotate(172deg) saturate(60%);
+}
