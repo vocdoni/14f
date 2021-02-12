@@ -4,17 +4,6 @@
 const lang = "ca";
 const DEVELOPMENT = process.env.NODE_ENV !== "production";
 
-const processes = {
-    barcelona:
-        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
-    lleida:
-        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
-    girona:
-        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
-    tarragona:
-        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
-};
-
 const optionsDefinitions = {
     psc: { icon: "🌹", name: "PSC" },
     erc: { icon: "🍋", name: "ERC" },
@@ -48,14 +37,13 @@ module.exports = {
 
     // VOCHAIN
     BLOCK_TIME: process.env.BLOCK_TIME || "12",
-    PROCESSES: processes,
     OPTIONS: optionsDefinitions,
 
     // GATEWAYS
     BOOTNODES_URL: DEVELOPMENT
         ? "https://bootnodes.vocdoni.net/gateways.stg.json"
         : process.env.BOOTNODES_URL ||
-          "https://bootnodes.vocdoni.net/gateways.json",
+        "https://bootnodes.vocdoni.net/gateways.json",
 
     // CA
     CA_URL: DEVELOPMENT

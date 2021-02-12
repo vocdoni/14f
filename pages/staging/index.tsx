@@ -20,9 +20,18 @@ const IndexPage = () => {
     const [nullifier, setNullifier] = useState<string>(null);
 
     const loadProcess = (region: string) => {
-        setRegion(region);
         setIsLoading(true);
-        setProcessId(process.env.PROCESSES[region]);
+        fetch("/process-ids.json?random=" + Math.random().toString().slice(2))
+            .then(res => res.json())
+            .then(processMap => {
+                const pid = processMap[region];
+                if (!pid) throw new Error("No es poden carregar els detalls la circumscripció seleccionada");
+                setRegion(region);
+                setProcessId(pid);
+            })
+            .catch(err => {
+                setMessage(err?.message || err?.toString() || "No es poden carregar els detalls la circumscripció seleccionada");
+            })
     };
 
     const handleVote = (value: string) => {
