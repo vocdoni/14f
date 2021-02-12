@@ -182,8 +182,8 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
         const { icon, name, value } = selectedOption;
         var result = confirm(`Confirmes el teu vot per ${icon} ${name}?`);
         if (result) {
-            onVote(Faker.finance.ethereumAddress);
-            return;
+            // onVote(Faker.finance.ethereumAddress);
+            // return;
 
             const choices = [value];
             const pool = (poolPromise.pool as unknown) as GatewayPool;
