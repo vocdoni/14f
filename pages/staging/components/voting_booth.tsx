@@ -211,7 +211,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                         if (registered) {
                             return onVote(nullifier)
                         }
-                        await new Promise((resolve) => setTimeout(resolve, Math.floor(process.env.BLOCK_TIME * 500)))
+                        await new Promise((resolve) => setTimeout(resolve, Math.floor(Number(process.env.BLOCK_TIME) * 500)))
                     }
                     throw new Error("check nullifier error")
                 })
