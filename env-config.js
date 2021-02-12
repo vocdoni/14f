@@ -6,13 +6,13 @@ const DEVELOPMENT = process.env.NODE_ENV !== "production";
 
 const processes = {
     barcelona:
-        "0xebd1c37942862cc6868133fdf7a8932f0e1b9b8a9a64bc540cea068dc9d643c1",
+        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
     lleida:
-        "0xebd1c37942862cc6868133fdf7a8932f0e1b9b8a9a64bc540cea068dc9d643c1",
+        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
     girona:
-        "0xebd1c37942862cc6868133fdf7a8932f0e1b9b8a9a64bc540cea068dc9d643c1",
+        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
     tarragona:
-        "0xebd1c37942862cc6868133fdf7a8932f0e1b9b8a9a64bc540cea068dc9d643c1",
+        "0x6383a9020695d808bbdcdb05aa4a9095e9133411805328d3712c16f0b51b550a",
 };
 
 const optionsDefinitions = {
@@ -31,8 +31,8 @@ const optionsDefinitions = {
     pnc: { icon: "🍏", name: "PNC" },
     fnc: { icon: "🧊", name: "FNC" },
     rc: { icon: "🍉", name: "RECORTES CERO-GV-M" },
-    blank: { icon: "⬜", name: "Vot en blanc" },
-    void: { icon: "💩", name: "Vot nul" },
+    blank: { icon: "🧻", name: "En blanc" },
+    void: { icon: "💩", name: "Nul" },
 };
 
 module.exports = {

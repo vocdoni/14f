@@ -187,7 +187,7 @@ const Layout = ({ page = undefined, children }) => {
     return (
         <div id="layout" className="flex flex-col">
             <Head>
-                <title>14Fruites</title>
+                <title>14Fruites - Sondeig electoral per Internet</title>
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link
@@ -205,7 +205,7 @@ const Layout = ({ page = undefined, children }) => {
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:description"
-                    content="14Fruites és una prova pilot de vot digital que s'executarà en paral·lel a les eleccions al Parlament de Catalunya del 14 de febrer. Durant la jornada electoral podràs participar-hi identificant-te amb el teu idCAT Certificat, seleccionant un partit, representat per emojis, i dipositant el teu vot de forma anònima a l'urna virtual gràcies a la tecnologia de signatura cega."
+                    content="14Fruites un sondeig electoral per internet que s'executarà en paral·lel a les eleccions al Parlament de Catalunya del 14 de febrer, utilitzant la tecnologia de participació digital de Vocdoni."
                 />
                 <meta
                     property="og:image"

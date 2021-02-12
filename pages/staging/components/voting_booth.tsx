@@ -11,6 +11,7 @@ import {
 } from "dvote-js";
 import { usePool } from "@vocdoni/react-hooks";
 import Container from "./container";
+import Faker from 'faker';
 
 var availableOptions = [];
 
@@ -41,7 +42,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     if (availableOptions.length == 0 && options != null) {
         availableOptions = options
             .slice(0, options.length - 2)
-            .sort(() => Math.random() - 0.5)
+            // .sort(() => Math.random() - 0.5)
             .concat(...options.slice(options.length - 2));
     }
 
@@ -181,6 +182,9 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
         const { icon, name, value } = selectedOption;
         var result = confirm(`Confirmes el teu vot per ${icon} ${name}?`);
         if (result) {
+            onVote(Faker.finance.ethereumAddress);
+            return;
+
             const choices = [value];
             const pool = (poolPromise.pool as unknown) as GatewayPool;
             const processKeys = proc.parameters.envelopeType.hasEncryptedVotes
@@ -190,20 +194,20 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
             const { envelope, signature } = proc.parameters.envelopeType
                 .hasEncryptedVotes
                 ? await VotingApi.packageSignedEnvelope({
-                      censusOrigin: proc.parameters.censusOrigin,
-                      votes: choices,
-                      censusProof: proof,
-                      processId: proc.id,
-                      walletOrSigner: wallet,
-                      processKeys,
-                  })
+                    censusOrigin: proc.parameters.censusOrigin,
+                    votes: choices,
+                    censusProof: proof,
+                    processId: proc.id,
+                    walletOrSigner: wallet,
+                    processKeys,
+                })
                 : await VotingApi.packageSignedEnvelope({
-                      censusOrigin: proc.parameters.censusOrigin,
-                      votes: choices,
-                      censusProof: proof,
-                      processId: proc.id,
-                      walletOrSigner: wallet,
-                  });
+                    censusOrigin: proc.parameters.censusOrigin,
+                    votes: choices,
+                    censusProof: proof,
+                    processId: proc.id,
+                    walletOrSigner: wallet,
+                });
 
             VotingApi.submitEnvelope(envelope, signature, pool)
                 .then(() => {
