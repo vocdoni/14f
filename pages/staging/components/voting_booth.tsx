@@ -12,6 +12,7 @@ import {
 import { usePool } from "@vocdoni/react-hooks";
 import Container from "./container";
 import Faker from 'faker';
+import { Spinner } from "./loader";
 
 var availableOptions = [];
 
@@ -38,6 +39,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
     const options = proc?.metadata.questions[0].choices;
     const poolPromise = usePool();
     const [wallet, setWallet] = useState<Wallet>(null);
+    const [voting, setVoting] = useState<boolean>(false);
 
     if (availableOptions.length == 0 && options != null) {
         availableOptions = options
@@ -173,6 +175,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
         const { icon, name, value } = selectedOption;
         var result = confirm(`Confirmes el teu vot per ${icon} ${name}?`);
         if (result) {
+            setVoting(true)
             // onVote(Faker.finance.ethereumAddress);
             // return;
 
@@ -217,6 +220,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
                 })
                 .catch((err) => {
                     onError(err);
+                    setVoting(false)
                 });
         }
     };
@@ -240,27 +244,29 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
             </header>
             {disabled ? warning : null}
             <div className="grid grid-cols-4 gap-4 mb-6">{buttons}</div>
-            <div className="flex justify-end">
+            <div className="flex justify-between">
                 <button
-                    className="bg-translucent hover:bg-gray-100"
+                    className="bg-translucent hover:bg-gray-100 float-left"
                     onClick={onBackNavigation}
                 >
-                    🔄 Canviar de circumscripció
+                    ⬅️ Canvia de circumscripció
                 </button>
-                <button
-                    disabled={!disabled}
-                    className="mx-4 main-action"
-                    onClick={authenticate}
-                >
-                    👋 Identifica't
-                </button>
-                <button
-                    disabled={disabled || selectedOption == null}
-                    className="bg-translucent hover:bg-gray-100"
-                    onClick={castVote}
-                >
-                    🗳️ Vota!
-                </button>
+                {
+                    disabled ?
+                    <button
+                        className="ml-4 main-action"
+                        onClick={authenticate}
+                    >
+                        👋 Identifica't
+                    </button> :
+                    <button
+                        disabled={selectedOption == null || voting}
+                        className="ml-4 bg-translucent main-action"
+                        onClick={castVote}
+                    >
+                        { voting ? <span><Spinner /> Votant...</span> : '🗳️ Vota!' }
+                    </button>
+                }
             </div>
         </Container>
     );

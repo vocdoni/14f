@@ -29,7 +29,7 @@ const RegionSelector = ({ onSelect, onBackNavigation }) => {
                     </button>;
                 })}
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-left">
                 <button
                     className="bg-translucent hover:bg-gray-100"
                     onClick={onBackNavigation}
