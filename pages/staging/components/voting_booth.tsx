@@ -238,7 +238,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
         <Container>
             <header>
                 <div className="mb-2 font-light text-center mt-7 text-vocdoni text-md lg:text-lg">
-                    Pas 02 de 02
+                    Pas 03 de 03
                 </div>
                 <h1 className="mb-5 text-3xl font-bold leading-none tracking-tight text-center text-gray-900 lg:text-4xl sm:mb-7">
                     Tria la teva fruita preferida!
