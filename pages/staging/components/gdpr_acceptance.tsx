@@ -64,7 +64,7 @@ const GDPRAcceptance = ({ onAccept }) => {
                     Protecció de Dades a la nostra{" "}
                     <a
                         className="underline"
-                        href="https://vocdoni.io/politica-privacidad-14fruites"
+                        href="https://vocdoni.io/politica-priv-14fruites"
                     >
                         pàgina web
                     </a>

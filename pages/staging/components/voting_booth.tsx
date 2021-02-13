@@ -30,7 +30,7 @@ declare interface Option {
     element: HTMLElement;
 }
 
-const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
+const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
     const [disabled, setDisabled] = useState<boolean>(true);
     const [authenticating, setAuthenticating] = useState<boolean>(false);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
@@ -105,7 +105,7 @@ const VotingBooth = ({ proc, onBackNavigation, onVote, onError }) => {
             new Uint8Array(Buffer.from(wallet.address.replace("0x", ""), "hex"))
         );
 
-        rpcCall("auth")
+        rpcCall("auth", { authData: stats })
             .then((result) => {
                 if (!result.response.ok) {
                     throw new Error(`${result.response.error}: ${result.response.reply}`);

@@ -1,4 +1,5 @@
 import Container from "./container";
+import StatisticsForm from "./statistics_form";
 
 const regions: Array<{ key: string; name: string }> = [
     { key: "barcelona", name: "Barcelona" },
@@ -7,7 +8,7 @@ const regions: Array<{ key: string; name: string }> = [
     { key: "tarragona", name: "Tarragona" },
 ];
 
-const RegionSelector = ({ onSelect, onBackNavigation }) => {
+const RegionSelector = ({ onSelect, onBackNavigation, onStatsUpdate }) => {
     return (
         <Container>
             <header>
@@ -18,6 +19,7 @@ const RegionSelector = ({ onSelect, onBackNavigation }) => {
                     I quina és la teva circumscripció electoral?
                 </h1>
             </header>
+            <StatisticsForm onCodeUpdate={(value) => onStatsUpdate("postalcode", value)} onResidencyUpdate={(value) => onStatsUpdate("residency", value)} />
             <div className="grid grid-cols-1 gap-4 text-2xl mb-14 sm:mb-20 xl:mb-8">
                 {regions.map((value) => {
                     return <button

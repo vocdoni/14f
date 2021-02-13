@@ -9,6 +9,11 @@ import { useProcess } from "@vocdoni/react-hooks";
 import Loader from "./components/loader";
 import GDPRAcceptance from "./components/gdpr_acceptance";
 
+declare interface statsRecord {
+    postalcode: string;
+    residency: string;
+}
+
 const IndexPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string | Error>(null);
@@ -20,19 +25,36 @@ const IndexPage = () => {
     const [hasVoted, setHasVoted] = useState<boolean>(false);
     const [nullifier, setNullifier] = useState<string>(null);
 
+    const [stats, setStats] = useState<statsRecord>({
+        postalcode: null,
+        residency: null,
+    });
+
+    const updateStats = (key: string, value: string) => {
+        stats[key] = value;
+        setStats(stats);
+    };
+
     const loadProcess = (region: string) => {
         setIsLoading(true);
         fetch("/process-ids.json?random=" + Math.random().toString().slice(2))
-            .then(res => res.json())
-            .then(processMap => {
+            .then((res) => res.json())
+            .then((processMap) => {
                 const pid = processMap[region];
-                if (!pid) throw new Error("No es poden carregar els detalls la circumscripció seleccionada");
+                if (!pid)
+                    throw new Error(
+                        "No es poden carregar els detalls la circumscripció seleccionada"
+                    );
                 setRegion(region);
                 setProcessId(pid);
             })
-            .catch(err => {
-                setMessage(err?.message || err?.toString() || "No es poden carregar els detalls la circumscripció seleccionada");
-            })
+            .catch((err) => {
+                setMessage(
+                    err?.message ||
+                        err?.toString() ||
+                        "No es poden carregar els detalls la circumscripció seleccionada"
+                );
+            });
     };
 
     const handleVote = (value: string) => {
@@ -43,14 +65,22 @@ const IndexPage = () => {
     useEffect(() => {
         if (message === null) return;
 
-        let msg: string
-        if ((message as any) instanceof Error) msg = (message as any).message
-        else if (typeof message != "string") return alert("Hi ha hagut un error en connectar amb la xarxa")
-        else msg = message
+        let msg: string;
+        if ((message as any) instanceof Error) msg = (message as any).message;
+        else if (typeof message != "string")
+            return alert("Hi ha hagut un error en connectar amb la xarxa");
+        else msg = message;
 
-        if (msg.includes("certificate already used")) return alert("El teu certificat ja ha estat utilitzat per aquest procés")
-        else if (msg.includes("Could not fetch the process")) return alert("No es poden carregar les dades del procés. Intenta-ho de nou en uns minuts.")
-        else if (msg.includes("nullifier error")) return alert("Hi ha hagut un problema enregistrant el teu vot")
+        if (msg.includes("certificate already used"))
+            return alert(
+                "El teu certificat ja ha estat utilitzat per aquest procés"
+            );
+        else if (msg.includes("Could not fetch the process"))
+            return alert(
+                "No es poden carregar les dades del procés. Intenta-ho de nou en uns minuts."
+            );
+        else if (msg.includes("nullifier error"))
+            return alert("Hi ha hagut un problema enregistrant el teu vot");
 
         alert("Hi ha hagut un error en processar la petició");
         console.error(msg);
@@ -69,13 +99,23 @@ const IndexPage = () => {
                 if (isLoading) return <Loader />;
                 else if (!hasEntered)
                     return <Intro onClick={() => setHasEntered(true)} />;
-                else if (!hasAccepted) return <GDPRAcceptance onAccept={() => setHasAccepted(true)} />
+                else if (!hasAccepted)
+                    return (
+                        <GDPRAcceptance onAccept={() => setHasAccepted(true)} />
+                    );
                 else if (region == null)
-                    return <RegionSelector onSelect={loadProcess} onBackNavigation={() => setHasEntered(false)} />;
+                    return (
+                        <RegionSelector
+                            onSelect={loadProcess}
+                            onBackNavigation={() => setHasEntered(false)}
+                            onStatsUpdate={updateStats}
+                        />
+                    );
                 else if (!hasVoted)
                     return (
                         <VotingBooth
                             proc={processInfo.process}
+                            stats={Object.values(stats)}
                             onVote={handleVote}
                             onBackNavigation={() => setRegion(null)}
                             onError={setMessage}
