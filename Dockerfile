@@ -14,7 +14,7 @@ ENV BOOTNODES_URL=${BOOTNODES_URL}
 
 ADD . /app
 WORKDIR /app
-RUN npm install && npm run export
+RUN npm install --force && npm run export
 
 
 ## Static web server
