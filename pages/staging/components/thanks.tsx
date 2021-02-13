@@ -13,8 +13,7 @@ const Thanks = ({ nullifier }) => {
             twitterButton({
                 label: "Piular",
                 url: "https://14fruites.cat",
-                text:
-                    'text: "Ja he participat en el sondeig digital #14fruites sobre les eleccions catalanes del 14 de febrer #eleccions14F Participa-hi!',
+                text: "Ja he participat en el sondeig digital #14fruites sobre les eleccions catalanes del 14 de febrer #eleccions14F Participa-hi!",
             }),
             facebookButton({
                 label: "Compartir",
