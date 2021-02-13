@@ -9,7 +9,7 @@ import {
     Random,
     VotingApi,
 } from "dvote-js";
-import { usePool } from "@vocdoni/react-hooks";
+import { ProcessInfo, usePool } from "@vocdoni/react-hooks";
 import Container from "./container";
 import { Spinner } from "./loader";
 
@@ -23,6 +23,40 @@ function usePrevious<S>(value): S {
     return ref.current;
 }
 
+function useCachedWallet() {
+    if (typeof window == "undefined") return { wallet: Wallet.createRandom(), storeWallet: (_) => { }, clearWallet: () => { } }
+
+    const [wallet] = useState<Wallet>(window["localStorage"].getItem("ephemeral-privk") ?
+        new Wallet(window["localStorage"].getItem("ephemeral-privk")) : Wallet.createRandom())
+
+    const storeWallet = (w: Wallet) => {
+        window["localStorage"].setItem("ephemeral-privk", w.privateKey)
+    };
+
+    const clearWallet = () => {
+        window["localStorage"].removeItem("ephemeral-privk")
+    }
+
+    return { wallet, storeWallet, clearWallet }
+}
+
+function useCachedProof() {
+    if (typeof window == "undefined") return { proof: {} as IProofCA, storeCaProof: (_) => { }, clearProof: () => { } }
+
+    const [proof, setProof] = useState<IProofCA>(JSON.parse(window["localStorage"].getItem("ephemeral-proof") || "{}"))
+
+    const storeCaProof = (proof: IProofCA) => {
+        window["localStorage"].setItem("ephemeral-proof", JSON.stringify(proof))
+        setProof(proof)
+    }
+    const clearProof = () => {
+        window["localStorage"].removeItem("ephemeral-proof")
+        setProof(null)
+    }
+
+    return { proof, storeCaProof, clearProof }
+}
+
 declare interface Option {
     icon: string;
     name: string;
@@ -30,15 +64,15 @@ declare interface Option {
     element: HTMLElement;
 }
 
-const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
-    const [disabled, setDisabled] = useState<boolean>(true);
+const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc: ProcessInfo, stats: any, onBackNavigation: () => void, onVote: (value: string) => void, onError: (err: string | Error) => void }) => {
+    const { proof, storeCaProof, clearProof } = useCachedProof()
+    const { wallet, storeWallet, clearWallet } = useCachedWallet()
+    const [disabled, setDisabled] = useState<boolean>(!proof || !proof.signature || !proof.voterAddress || !proof.type);
     const [authenticating, setAuthenticating] = useState<boolean>(false);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
-    const [proof, setProof] = useState<IProofCA>(null);
     const options = proc?.metadata.questions[0].choices;
     const poolPromise = usePool();
-    const [wallet, setWallet] = useState<Wallet>(null);
     const [voting, setVoting] = useState<boolean>(false);
 
     if (availableOptions.length == 0 && options != null) {
@@ -94,16 +128,15 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
         setAuthenticating(true);
         onError(null);
 
-        const wallet = Wallet.createRandom();
         const caBundle = new CaBundleProtobuf();
 
-        setWallet(wallet);
         caBundle.setProcessid(
             new Uint8Array(Buffer.from(proc.id.replace("0x", ""), "hex"))
         );
         caBundle.setAddress(
             new Uint8Array(Buffer.from(wallet.address.replace("0x", ""), "hex"))
         );
+        storeWallet(wallet)
 
         rpcCall("auth", { authData: stats })
             .then((result) => {
@@ -135,11 +168,12 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                             userSecretData
                         );
 
-                        setProof({
+                        const caProof = {
                             type: ProofCaSignatureTypes.ECDSA_BLIND,
                             signature: unblindedSignature,
                             voterAddress: wallet.address,
-                        });
+                        }
+                        storeCaProof(caProof);
                         setDisabled(false);
                     })
             })
@@ -212,6 +246,8 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                     for (let i = 0; i < 10; i++) {
                         const { registered, date } = await VotingApi.getEnvelopeStatus(proc.id, nullifier, pool)
                         if (registered) {
+                            clearWallet()
+                            clearProof()
                             return onVote(nullifier)
                         }
                         await new Promise((resolve) => setTimeout(resolve, Math.floor(Number(process.env.BLOCK_TIME) * 500)))
@@ -275,8 +311,8 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                                 <span>
                                     <span className='vote-icon'>🗳️</span> Vota!
                                 </span>
-                        }
-                    </button>
+                            }
+                        </button>
                 }
             </div>
         </Container>
