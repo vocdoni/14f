@@ -244,8 +244,8 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                     Tria la teva fruita preferida!
                 </h1>
             </header>
-            {disabled ? warning : null}
             <div className="grid grid-cols-4 gap-4 mb-6">{buttons}</div>
+            {disabled ? warning : null}
             <div className="flex justify-between">
                 <button
                     className="float-left bg-translucent hover:bg-gray-100"

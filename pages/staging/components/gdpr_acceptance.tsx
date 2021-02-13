@@ -71,6 +71,9 @@ const GDPRAcceptance = ({ onAccept }) => {
                     .
                 </dd>
             </dl>
+            <div className="p-4 mb-3 text-blue-800 bg-blue-100 border border-transparent text-md rounded-xl">
+                Aquest servei és absolutament anònim. En cap cas el proveïdor d'aquest servei ni tercers poden saber la relació participant-opció escollida.
+            </div>
             <div className="text-right">
                 <div className="mb-1">
                     <input

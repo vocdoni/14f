@@ -26,8 +26,8 @@ const IndexPage = () => {
     const [nullifier, setNullifier] = useState<string>(null);
 
     const [stats, setStats] = useState<statsRecord>({
-        postalcode: null,
-        residency: null,
+        postalcode: "",
+        residency: "",
     });
 
     const updateStats = (key: string, value: string) => {
