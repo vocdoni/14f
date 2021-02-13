@@ -83,7 +83,7 @@ const GDPRAcceptance = ({ onAccept }) => {
                     />
                     <label htmlFor="accept">
                         {" "}
-                        Accepto els termes i condicions
+                        Accepto participar
                     </label>
                 </div>
                 <button

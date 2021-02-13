@@ -117,8 +117,12 @@ const Intro = ({ onClick }) => {
                     .
                 </p>
             </div>
-            <footer className="flex py-10">
+            <footer className="flex flex-col py-10">
                 <PoweredByVocdoni />
+                <div className="mt-2 text-xs">
+                    <a className="underline" href="https://vocdoni.io/condiciones-de-uso-14fruites/">Condicions d'ús</a>
+                    <a className="ml-3 underline" href="https://vocdoni.io/politica-priv-14fruites/">Política de privacitat</a>
+                </div>
             </footer>
         </>
     );
