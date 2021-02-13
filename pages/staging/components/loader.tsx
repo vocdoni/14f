@@ -1,14 +1,18 @@
-export const Spinner = () => {
-    return <span className="animate-spin">♻️</span>
-}
+import Container from "./container";
 
-const Loader = () =>  {
-    return <div className="flex justify-center flex-1 align-middle">
-        <h1 className="my-auto text-lg font-bold text-gray-900">
-            <Spinner />
-            &nbsp; Carregant...
-        </h1>
-    </div>
-}
+export const Spinner = () => {
+    return <span className="animate-spin">♻️</span>;
+};
+
+const Loader = () => {
+    return (
+        <Container>
+            <div className="my-auto text-lg font-bold text-center text-gray-900">
+                <Spinner />
+                &nbsp; Carregant...
+            </div>
+        </Container>
+    );
+};
 
 export default Loader;

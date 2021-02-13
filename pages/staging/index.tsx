@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter, withRouter } from "next/router";
+import { withRouter } from "next/router";
 import Layout from "../../components/layout";
 import Intro from "./components/intro";
 import RegionSelector from "./components/region_selector";
@@ -9,7 +9,6 @@ import { useProcess } from "@vocdoni/react-hooks";
 import Loader from "./components/loader";
 
 const IndexPage = () => {
-    const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string | Error>(null);
     const [hasEntered, setHasEntered] = useState<boolean>(false);
