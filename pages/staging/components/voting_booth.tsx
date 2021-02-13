@@ -24,14 +24,18 @@ function usePrevious<S>(value): S {
 }
 
 function useCachedWallet() {
-    const [wallet, setWallet] = useState<Wallet>(localStorage.getItem("ephemeral-privk") ?
+    const [wallet] = useState<Wallet>(localStorage.getItem("ephemeral-privk") ?
         new Wallet(localStorage.getItem("ephemeral-privk")) : Wallet.createRandom())
+
+    const storeWallet = (w: Wallet) => {
+        localStorage.setItem("ephemeral-privk", w.privateKey)
+    };
 
     const clearWallet = () => {
         localStorage.removeItem("ephemeral-privk")
     }
 
-    return { wallet, clearWallet }
+    return { wallet, storeWallet, clearWallet }
 }
 
 function useCachedProof() {
@@ -57,12 +61,12 @@ declare interface Option {
 }
 
 const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc: ProcessInfo, stats: any, onBackNavigation: () => void, onVote: (value: string) => void, onError: (err: string | Error) => void }) => {
-    const [disabled, setDisabled] = useState<boolean>(true);
+    const { proof, storeCaProof, clearProof } = useCachedProof()
+    const { wallet, storeWallet, clearWallet } = useCachedWallet()
+    const [disabled, setDisabled] = useState<boolean>(!proof || !proof.signature || !proof.voterAddress || !proof.type);
     const [authenticating, setAuthenticating] = useState<boolean>(false);
     const [selectedOption, setSelectedOption] = useState<Option>(null);
     const previousOption = usePrevious<Option>(selectedOption);
-    const { proof, storeCaProof, clearProof } = useCachedProof()
-    const { wallet, clearWallet } = useCachedWallet()
     const options = proc?.metadata.questions[0].choices;
     const poolPromise = usePool();
     const [voting, setVoting] = useState<boolean>(false);
@@ -128,6 +132,7 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc:
         caBundle.setAddress(
             new Uint8Array(Buffer.from(wallet.address.replace("0x", ""), "hex"))
         );
+        storeWallet(wallet)
 
         rpcCall("auth", { authData: stats })
             .then((result) => {
