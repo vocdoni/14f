@@ -49,7 +49,7 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
     }
 
     const warning = (
-        <div className="px-4 py-4 mb-6 text-yellow-800 bg-yellow-100 border border-transparent text-md rounded-xl">
+        <div className="px-4 py-4 mb-6 text-sm text-yellow-800 bg-yellow-100 border border-transparent lg:text-md rounded-xl">
             Per poder triar, has d'identificar-te primer. Recorda que necessites
             l'idCAT Certificat instal·lat al navegador. Un cop feta
             l'autenticació, s'activaran els botons de les fruites i per votar.
@@ -178,8 +178,6 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
         var result = confirm(`Confirmes el teu vot per ${icon} ${name}?`);
         if (result) {
             setVoting(true)
-            // onVote(Faker.finance.ethereumAddress);
-            // return;
 
             const choices = [value];
             const pool = (poolPromise.pool as unknown) as GatewayPool;
@@ -237,18 +235,18 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
     return (
         <Container>
             <header>
-                <div className="mb-2 font-light text-center mt-7 text-vocdoni text-md lg:text-lg">
+                <div className="text-sm font-light text-center lg:mb-2 mt-7 text-vocdoni lg:text-lg">
                     Pas 03 de 03
                 </div>
-                <h1 className="mb-5 text-3xl font-bold leading-none tracking-tight text-center text-gray-900 lg:text-4xl sm:mb-7">
+                <h1 className="mb-5 text-2xl font-bold leading-none tracking-tight text-center text-gray-900 lg:text-3xl sm:mb-7 mt-7">
                     Tria la teva fruita preferida!
                 </h1>
             </header>
-            <div className="grid grid-cols-4 gap-4 mb-6">{buttons}</div>
+            <div className="grid grid-cols-2 gap-4 mb-6 lg:grid-cols-4">{buttons}</div>
             {disabled ? warning : null}
-            <div className="flex justify-between">
+            <div className="flex flex-col lg:flex-row lg:justify-between">
                 <button
-                    className="float-left bg-translucent hover:bg-gray-100"
+                    className="w-full mb-3 lg:w-auto lg:float-left lg:mb-0 bg-translucent hover:bg-gray-100"
                     onClick={onBackNavigation}
                 >
                     ⬅️ Canvia de circumscripció
@@ -257,7 +255,7 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                     disabled ?
                     <button
                         disabled={authenticating}
-                        className="ml-4 main-action w-44"
+                        className="w-full lg:ml-4 main-action lg:w-44"
                         onClick={authenticate}
                     >
                         {
@@ -268,7 +266,7 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }) => {
                     </button> :
                     <button
                         disabled={selectedOption == null || voting}
-                        className="ml-4 bg-translucent main-action w-44"
+                        className="w-full lg:ml-4 main-action lg:w-44"
                         onClick={castVote}
                     >
                         {

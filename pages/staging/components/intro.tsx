@@ -24,14 +24,14 @@ const Intro = ({ onClick }) => {
                     />
                 </a>
             </header>
-            <div className="max-w-screen-lg mb-6 leading-5 lg:leading-7 sm:text-xl">
-                <p className="mb-6 text-3xl font-medium">
+            <div className="max-w-screen-lg mb-6 text-lg leading-6 lg:leading-7 lg:text-xl">
+                <p className="mb-6 text-2xl font-medium lg:text-3xl">
                     Benvinguts a <Name />, un sondeig electoral per internet que
                     s'executarà en paral·lel a les eleccions al Parlament de
                     Catalunya del 14 de febrer, utilitzant la tecnologia de
                     participació digital de Vocdoni.
                 </p>
-                <p className="mb-6 text-xl font-light text-vocdoni">
+                <p className="mb-6 font-light text-vocdoni">
                     Durant la jornada electoral podràs participar-hi
                     identificant-te amb el teu idCAT Certificat, seleccionant un
                     partit, representat per emojis, i seleccionant la teva
@@ -39,7 +39,7 @@ const Intro = ({ onClick }) => {
                     la tecnologia de signatura cega. Però recorda que aquest
                     sondeig no reemplaça el teu vot a les urnes 😉
                 </p>
-                <p className="text-xl font-light text-vocdoni">
+                <p className="font-light text-vocdoni">
                     Els resultats es faran públics quasi bé immediatament
                     després del tancament dels col·legis electorals oficials.
                     Podràs consultar-los a la mateixa pàgina web del sondeig.
