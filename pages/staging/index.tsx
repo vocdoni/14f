@@ -7,11 +7,13 @@ import VotingBooth from "./components/voting_booth";
 import Thanks from "./components/thanks";
 import { useProcess } from "@vocdoni/react-hooks";
 import Loader from "./components/loader";
+import GDPRAcceptance from "./components/gdpr_acceptance";
 
 const IndexPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string | Error>(null);
     const [hasEntered, setHasEntered] = useState<boolean>(false);
+    const [hasAccepted, setHasAccepted] = useState<boolean>(false);
     const [region, setRegion] = useState<string>(null);
     const [processId, setProcessId] = useState<string>(null);
     const processInfo = useProcess(processId);
@@ -67,6 +69,7 @@ const IndexPage = () => {
                 if (isLoading) return <Loader />;
                 else if (!hasEntered)
                     return <Intro onClick={() => setHasEntered(true)} />;
+                else if (!hasAccepted) return <GDPRAcceptance onAccept={() => setHasAccepted(true)} />
                 else if (region == null)
                     return <RegionSelector onSelect={loadProcess} onBackNavigation={() => setHasEntered(false)} />;
                 else if (!hasVoted)
