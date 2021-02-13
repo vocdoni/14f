@@ -24,29 +24,33 @@ function usePrevious<S>(value): S {
 }
 
 function useCachedWallet() {
-    const [wallet] = useState<Wallet>(localStorage.getItem("ephemeral-privk") ?
-        new Wallet(localStorage.getItem("ephemeral-privk")) : Wallet.createRandom())
+    if (typeof window == "undefined") return { wallet: Wallet.createRandom(), storeWallet: (_) => { }, clearWallet: () => { } }
+
+    const [wallet] = useState<Wallet>(window["localStorage"].getItem("ephemeral-privk") ?
+        new Wallet(window["localStorage"].getItem("ephemeral-privk")) : Wallet.createRandom())
 
     const storeWallet = (w: Wallet) => {
-        localStorage.setItem("ephemeral-privk", w.privateKey)
+        window["localStorage"].setItem("ephemeral-privk", w.privateKey)
     };
 
     const clearWallet = () => {
-        localStorage.removeItem("ephemeral-privk")
+        window["localStorage"].removeItem("ephemeral-privk")
     }
 
     return { wallet, storeWallet, clearWallet }
 }
 
 function useCachedProof() {
-    const [proof, setProof] = useState<IProofCA>(JSON.parse(localStorage.getItem("ephemeral-proof") || "{}"))
+    if (typeof window == "undefined") return { proof: {} as IProofCA, storeCaProof: (_) => { }, clearProof: () => { } }
+
+    const [proof, setProof] = useState<IProofCA>(JSON.parse(window["localStorage"].getItem("ephemeral-proof") || "{}"))
 
     const storeCaProof = (proof: IProofCA) => {
-        localStorage.setItem("ephemeral-proof", JSON.stringify(proof))
+        window["localStorage"].setItem("ephemeral-proof", JSON.stringify(proof))
         setProof(proof)
     }
     const clearProof = () => {
-        localStorage.removeItem("ephemeral-proof")
+        window["localStorage"].removeItem("ephemeral-proof")
         setProof(null)
     }
 
