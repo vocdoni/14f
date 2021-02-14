@@ -71,7 +71,7 @@ const IndexPage = () => {
             return alert("Hi ha hagut un error en connectar amb la xarxa");
         else msg = message;
 
-        if (msg.includes("certificate already used"))
+        if (msg.includes("certificate already registered"))
             return alert(
                 "El teu certificat ja ha estat utilitzat per aquest procés"
             );
