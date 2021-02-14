@@ -1,118 +1,130 @@
+import { useState, useEffect } from "react";
+import { withRouter } from "next/router";
 import Layout from "../components/layout";
-import PoweredByVocdoni from '../components/powered_by';
+import Intro from "../components/intro";
+import { useProcess } from "@vocdoni/react-hooks";
+import RegionSelector from "../components/region_selector";
+import VotingBooth from "../components/voting_booth";
+import Thanks from "../components/thanks";
+import Loader from "../components/loader";
+import GDPRAcceptance from "../components/gdpr_acceptance";
 
-const Name = () => {
-    return (
-        <>
-            <span className="font-bold" style={{ color: "#6A759E" }}>
-                14F
-            </span>
-            ruites
-        </>
-    );
-};
+declare interface statsRecord {
+    postalcode: string;
+    residency: string;
+}
 
 const IndexPage = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [message, setMessage] = useState<string | Error>(null);
+    const [hasEntered, setHasEntered] = useState<boolean>(false);
+    const [hasAccepted, setHasAccepted] = useState<boolean>(false);
+    const [region, setRegion] = useState<string>(null);
+    const [processId, setProcessId] = useState<string>(null);
+    const processInfo = useProcess(processId);
+    const [hasVoted, setHasVoted] = useState<boolean>(false);
+    const [nullifier, setNullifier] = useState<string>(null);
+
+    const [stats, setStats] = useState<statsRecord>({
+        postalcode: "",
+        residency: "",
+    });
+
+    const updateStats = (key: string, value: string) => {
+        stats[key] = value;
+        setStats(stats);
+    };
+
+    const loadProcess = (region: string) => {
+        setIsLoading(true);
+        fetch("/process-ids.json?random=" + Math.random().toString().slice(2))
+            .then((res) => res.json())
+            .then((processMap) => {
+                const pid = processMap[region];
+                if (!pid)
+                    throw new Error(
+                        "No es poden carregar els detalls la circumscripció seleccionada"
+                    );
+                setRegion(region);
+                setProcessId(pid);
+            })
+            .catch((err) => {
+                setMessage(
+                    err?.message ||
+                        err?.toString() ||
+                        "No es poden carregar els detalls la circumscripció seleccionada"
+                );
+            });
+    };
+
+    const handleVote = (value: string) => {
+        setNullifier(value);
+        setHasVoted(true);
+    };
+
+    useEffect(() => {
+        if (message === null) return;
+
+        let msg: string;
+        if ((message as any) instanceof Error) msg = (message as any).message;
+        else if (typeof message != "string")
+            return alert("Hi ha hagut un error en connectar amb la xarxa");
+        else msg = message;
+
+        if (msg.includes("certificate already used"))
+            return alert(
+                "El teu certificat ja ha estat utilitzat per aquest procés"
+            );
+        else if (msg.includes("Could not fetch the process"))
+            return alert(
+                "No es poden carregar les dades del procés. Intenta-ho de nou en uns minuts."
+            );
+        else if (msg.includes("nullifier error"))
+            return alert("Hi ha hagut un problema enregistrant el teu vot");
+
+        alert("Hi ha hagut un error en processar la petició");
+        console.error(msg);
+    }, [message]);
+
+    useEffect(() => {
+        if (processInfo?.error != null) setMessage(processInfo.error);
+        if (processInfo?.process == null) return;
+
+        setIsLoading(false);
+    }, [processInfo]);
+
     return (
         <Layout>
-            <header className="mt-16 mb-8 font-extrabold leading-none tracking-tight text-gray-900">
-                <a href="/">
-                    <img
-                        src="/logo_14F_alpha.png"
-                        className="mx-auto lg:mx-0"
-                    />
-                </a>
-            </header>
-            <div className="max-w-screen-lg mb-6 leading-5 lg:leading-7 sm:text-xl">
-                <p className="mb-6 text-3xl font-medium">
-                    Benvinguts a <Name />, un sondeig electoral per internet que
-                    s'executarà en paral·lel a les eleccions al Parlament de
-                    Catalunya del 14 de febrer, utilitzant la tecnologia de
-                    participació digital de Vocdoni.
-                </p>
-                <p className="mb-6 text-xl font-light text-vocdoni">
-                    Durant la jornada electoral podràs participar-hi
-                    identificant-te amb el teu idCAT Certificat, seleccionant un
-                    partit, representat per emojis, i seleccionant la teva
-                    opció. Aquesta quedarà registrada de forma anònima
-                    gràcies a la tecnologia de signatura cega. Però recorda que
-                    aquest sondeig no reemplaça el teu vot a les urnes 😉
-                </p>
-                <p className="text-xl font-light text-vocdoni">
-                    Els resultats es faran públics quasi bé immediatament
-                    després del tancament dels col·legis electorals oficials.
-                    Podràs consultar-los a la mateixa pàgina web del sondeig.
-                </p>
-            </div>
-            <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
-                <a
-                    href="http://eepurl.com/hpOlLv"
-                    target="_blank"
-                    className="inline-flex items-center col-span-1 p-4 text-xl font-semibold text-white transition-colors duration-200 bg-green-500 border border-transparent shadow md:col-span-2 hover:bg-green-600 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none"
-                >
-                    <span className="w-full text-center">✉️ Avisa'm!</span>
-                </a>
-                <div className="col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
-                    Si disposes d'un certificat idCAT Certificat, podràs
-                    participar-hi durant la jornada electoral del 14 de febrer
-                    de 2021. Consulta com aconseguir-ne un{" "}
-                    <a
-                        className="underline"
-                        href="https://www.idcat.cat/idcat/ciutada/menu.do"
-                        target="_blank"
-                    >
-                        aquí
-                    </a>
-                    .
-                </div>
-            </div>
-            <div className="text-xs leading-4 text-gray-600">
-                <p className="mb-2">
-                    Aquest sondeig electrònic està organitzat per Vocdoni i no
-                    té vinculació amb les eleccions al Parlament.
-                </p>
-                <p className="mb-2">
-                    El sistema implementa un mecanisme criptogràfic experimental
-                    anomenat "signatura cega" que proporciona al participant la
-                    possibilitat d'utilitzar certificats tipus idCAT amb el grau
-                    d'anonimat necessària per un sondeig d'aquest tipus. No
-                    obstant en unes eleccions oficials es requereixen més
-                    garanties com les incloses en el full de ruta de la{" "}
-                    <a
-                        href="https://docs.vocdoni.io/#/architecture/protocol/franchise-proof"
-                        target="_blank"
-                        className="underline"
-                    >
-                        plataforma de codi obert Vocdoni
-                    </a>
-                    .
-                </p>
-                <p>
-                    Per saber-ne més consulta la nota de premsa{" "}
-                    <a
-                        href="https://www.notion.so/Catalunya-acollir-el-primer-sondeig-per-internet-de-les-eleccions-del-14F-amb-tecnologia-blockchain-699ee7eb98b84a11926b1e1676011d12"
-                        target="_blank"
-                        className="underline"
-                    >
-                        aquí
-                    </a>{" "}
-                    i la informació tècnica sobre la tecnologia de vot digital
-                    que ho possibilita{" "}
-                    <a
-                        href="https://www.notion.so/Info-t-cnica-Votaci-amb-certificat-digital-b222379b80894380b6047036deedef5c"
-                        target="_blank"
-                        className="underline"
-                    >
-                        aquí
-                    </a>
-                    .
-                </p>
-            </div>
-            <footer className="flex py-10">
-                <PoweredByVocdoni />
-            </footer>
+            {(() => {
+                if (isLoading) return <Loader />;
+                else if (!hasEntered)
+                    return <Intro onClick={() => setHasEntered(true)} />;
+                else if (!hasAccepted)
+                    return (
+                        <GDPRAcceptance onAccept={() => setHasAccepted(true)} />
+                    );
+                else if (region == null)
+                    return (
+                        <RegionSelector
+                            onSelect={loadProcess}
+                            onBackNavigation={() => setHasEntered(false)}
+                            onStatsUpdate={updateStats}
+                        />
+                    );
+                else if (!hasVoted)
+                    return (
+                        <VotingBooth
+                            proc={processInfo.process}
+                            stats={Object.values(stats)}
+                            onVote={handleVote}
+                            onBackNavigation={() => setRegion(null)}
+                            onError={setMessage}
+                        />
+                    );
+                else return <Thanks nullifier={nullifier} />;
+            })()}
         </Layout>
     );
 };
 
-export default IndexPage;
+export default withRouter(IndexPage);

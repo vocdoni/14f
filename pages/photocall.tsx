@@ -1,5 +1,5 @@
-import Layout from "../../components/layout";
-import PoweredByVocdoni from "../../components/powered_by";
+import Layout from "../components/layout";
+import PoweredByVocdoni from "../components/powered_by";
 
 const Photocall = () => {
     return (

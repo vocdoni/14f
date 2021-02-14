@@ -1,4 +1,4 @@
-import PoweredByVocdoni from "../../../components/powered_by";
+import PoweredByVocdoni from "./powered_by";
 
 const Container = ({ children }) => {
     return (

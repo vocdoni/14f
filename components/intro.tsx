@@ -1,5 +1,5 @@
 import { usePool } from "@vocdoni/react-hooks";
-import PoweredByVocdoni from "../../../components/powered_by";
+import PoweredByVocdoni from "./powered_by";
 import { Spinner } from "./loader";
 
 const Name = () => {
