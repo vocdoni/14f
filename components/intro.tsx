@@ -75,7 +75,7 @@ const Intro = ({ onClick }) => {
                     </div>
                 </div>
                 <a
-                    className="inline-flex items-center col-span-1 p-4 text-xl font-medium bg-red-500 md:col-span-2 hover:bg-red-600 rounded-xl"
+                    className="inline-flex items-center col-span-1 p-4 text-xl font-medium bg-red-500 shadow md:col-span-2 hover:bg-red-600 rounded-xl"
                     href="https://www.notion.so/Preguntes-freq-ents-14Fruites-6c04e6d2beb14ba282dc2b10b0feb59a"
                     target="_blank"
                 >
