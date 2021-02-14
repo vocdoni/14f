@@ -5,31 +5,132 @@ const lang = "ca";
 const DEVELOPMENT = process.env.NODE_ENV !== "production";
 
 const optionsDefinitions = {
-    psc: { icon: "🌹", name: "PSC" },
-    erc: { icon: "🍋", name: "ERC" },
-    pdecat: { icon: "🥑", name: "PDeCAT" },
-    cup: { icon: "🍍", name: "CUP-G" },
-    jxcat: { icon: "🍈", name: "JxCat" },
-    pp: { icon: "💧", name: "PP" },
-    cs: { icon: "🍊", name: "Cs" },
-    ecp: { icon: "🍆", name: "ECP-PEC" },
-    vox: { icon: "🥦", name: "VOX" },
-    pctc: { icon: "🌶️", name: "PCTC" },
-    izqp: { icon: "🍅", name: "IZQP" },
-    mpic: { icon: "🍌", name: "Primàries" },
-    pnc: { icon: "🍏", name: "PNC" },
-    fnc: { icon: "🧊", name: "FNC" },
-    rc: { icon: "🍉", name: "RECORTES CERO-GV-M" },
-    pumj: { icon: "🧁", name: "PUM+J" },
-    uep: { icon: "🧄", name: "Unión Europea de Pensionistas" },
-    acv: { icon: "🥟", name: "Alianza C V" },
-    eb: { icon: "⬜", name: "Escons en Blanc" },
-    scat: { icon: "🌽", name: "Suport Civil Català" },
-    ebre: { icon: "🍙", name: "Som Terres de l'Ebre" },
-    unidos: { icon: "🥘", name: "Unidos por la Democracia + Jubilados" },
-    mcr: { icon: "🍄", name: "Moviment Corrent Roig" },
-    blank: { icon: "🧻", name: "En blanc" },
-    void: { icon: "💩", name: "Nul" },
+
+    psc: {
+        full: 'Partit Socialista de Catalunya',
+        icon: "🌹",
+        name: "PSC",
+    },
+    erc: {
+        full: 'Esquerra Republicana de Catalunya',
+        icon: "🍋",
+        name: "ERC",
+    },
+    pdecat: {
+        full: 'Partit Demòcrata Europeu Català',
+        icon: "🥑",
+        name: "PDeCAT",
+    },
+    cup: {
+        full: 'Candidatura d\'Unitat Popular',
+        icon: "🍍",
+        name: "CUP-G",
+    },
+    jxcat: {
+        full: 'Junts per Catalunya',
+        icon: "🍈",
+        name: "JxCat",
+    },
+    pp: {
+        full: 'Partit Popular',
+        icon: "💧",
+        name: "PP",
+    },
+    cs: {
+        full: 'Ciutadans',
+        icon: "🍊",
+        name: "Cs",
+    },
+    ecp: {
+        full: 'En Comú Podem',
+        icon: "🍆",
+        name: "ECP-PEC",
+    },
+    vox: {
+        full: 'Vox',
+        icon: "🥦",
+        name: "VOX",
+    },
+    pctc: {
+        full: 'Partit Comunista dels Treballadors de Catalunya',
+        icon: "🌶️",
+        name: "PCTC",
+    },
+    izqp: {
+        full: 'Izquierda en Positivo',
+        icon: "🍅",
+        name: "IZQP",
+    },
+    mpic: {
+        full: 'Moviment Primàries per la Independència de Catalunya',
+        icon: "🍌",
+        name: "Primàries",
+    },
+    pnc: {
+        full: 'Partit Nacionalista De Catalunya',
+        icon: "🍏",
+        name: "PNC",
+    },
+    fnc: {
+        full: 'Front Nacional de Catalunya',
+        icon: "🧊",
+        name: "FNC",
+    },
+    rc: {
+        full: 'Recortes Cero-Grup Verd-Municipalistes',
+        icon: "🍉",
+        name: "RECORTES CERO-GV-M",
+    },
+    pumj: {
+        full: 'Per Un Món Més Just',
+        icon: "🧁",
+        name: "PUM+J",
+    },
+    uep: {
+        full: 'Unión Europea De Pensionistas',
+        icon: "🧄",
+        name: "Unión Europea de Pensionistas",
+    },
+    acv: {
+        full: 'Alianza por el Comercio y la Vivienda',
+        icon: "🥟",
+        name: "Alianza C V",
+    },
+    eb: {
+        full: 'Escons en Blanc',
+        icon: "⬜",
+        name: "Escons en Blanc",
+    },
+    scat: {
+        full: 'Suport Civil Català',
+        icon: "🌽",
+        name: "Suport Civil Català",
+    },
+    ebre: {
+        full: 'Som Terres de l’Ebre',
+        icon: "🍙",
+        name: "Som Terres de l'Ebre",
+    },
+    unidos: {
+        full: 'Unidos por la Democracia + Jubilados',
+        icon: "🥘",
+        name: "Unidos por la Democracia + Jubilados",
+    },
+    mcr: {
+        full: 'Moviment Corrent Roig',
+        icon: "🍄",
+        name: "Moviment Corrent Roig",
+    },
+    blank: {
+        full: 'Vots en Blanc',
+        icon: "🧻",
+        name: "En blanc",
+    },
+    void: {
+        full: 'Vots Nuls',
+        icon: "💩",
+        name: "Nul",
+    },
 };
 
 module.exports = {
