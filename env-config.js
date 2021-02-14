@@ -56,7 +56,7 @@ module.exports = {
     // CA
     CA_URL: DEVELOPMENT
         ? "https://ci.vocdoni.net/ca"
-        : process.env.CA_URL || "https://idcat.ca.vocdoni.net/ca",
+        : process.env.CA_URL || "https://ci.vocdoni.net/ca",
 };
 
 console.log("Building the frontend with ENV:", module.exports);
