@@ -46,19 +46,13 @@ const Intro = ({ onClick }) => {
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
-                <button
-                    disabled={loading}
-                    onClick={onClick}
-                    className="inline-flex items-center col-span-1 text-xl md:col-span-2 main-action"
+                <a
+                    className="inline-flex items-center col-span-1 p-4 text-xl font-medium shadow bg-translucent hover:bg-gray-100 md:col-span-2 rounded-xl"
+                    href="https://www.notion.so/Preguntes-freq-ents-14Fruites-6c04e6d2beb14ba282dc2b10b0feb59a"
+                    target="_blank"
                 >
-                    {loading ? (
-                        <span className="w-full text-center">
-                            <Spinner /> Carregant...
-                        </span>
-                    ) : (
-                        <span className="w-full text-center">➡️ Continua</span>
-                    )}
-                </button>
+                    <span className="w-full text-center faqs-icon">❓ FAQs</span>
+                </a>
                 <div className="flex flex-col col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-6 text-md rounded-xl">
                     <div className="my-auto">
                         Si disposes d'un certificat idCAT Certificat, podràs
@@ -74,13 +68,19 @@ const Intro = ({ onClick }) => {
                         .
                     </div>
                 </div>
-                <a
-                    className="inline-flex items-center col-span-1 p-4 text-xl font-medium bg-red-500 shadow md:col-span-2 hover:bg-red-600 rounded-xl"
-                    href="https://www.notion.so/Preguntes-freq-ents-14Fruites-6c04e6d2beb14ba282dc2b10b0feb59a"
-                    target="_blank"
+                <button
+                    disabled={loading}
+                    onClick={onClick}
+                    className="inline-flex items-center col-span-1 text-xl md:col-span-2 main-action"
                 >
-                    <span className="w-full text-center faqs-icon">❓ FAQs</span>
-                </a>
+                    {loading ? (
+                        <span className="w-full text-center">
+                            <Spinner /> Carregant...
+                        </span>
+                    ) : (
+                        <span className="w-full text-center">➡️ Continua</span>
+                    )}
+                </button>
             </div>
             <div className="text-xs leading-4 text-gray-600">
                 <p className="mb-2">
