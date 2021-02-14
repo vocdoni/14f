@@ -43,7 +43,7 @@ const IndexPage = () => {
                 const pid = processMap[region];
                 if (!pid)
                     throw new Error(
-                        "No es poden carregar els detalls la circumscripció seleccionada"
+                        "No es poden carregar els detalls de la circumscripció seleccionada"
                     );
                 setRegion(region);
                 setProcessId(pid);
@@ -52,7 +52,7 @@ const IndexPage = () => {
                 setMessage(
                     err?.message ||
                         err?.toString() ||
-                        "No es poden carregar els detalls la circumscripció seleccionada"
+                        "No es poden carregar els detalls de la circumscripció seleccionada"
                 );
             });
     };
@@ -68,21 +68,21 @@ const IndexPage = () => {
         let msg: string;
         if ((message as any) instanceof Error) msg = (message as any).message;
         else if (typeof message != "string")
-            return alert("Hi ha hagut un error en connectar amb la xarxa");
+            return alert("Hi ha hagut un error en connectar amb la xarxa.");
         else msg = message;
 
         if (msg.includes("certificate already registered"))
             return alert(
-                "El teu certificat ja ha estat utilitzat per aquest procés"
+                "El teu certificat ja ha estat utilitzat per aquest procés."
             );
         else if (msg.includes("Could not fetch the process"))
             return alert(
                 "No es poden carregar les dades del procés. Intenta-ho de nou en uns minuts."
             );
         else if (msg.includes("nullifier error"))
-            return alert("Hi ha hagut un problema enregistrant el teu vot");
+            return alert("Hi ha hagut un problema enregistrant el teu vot.");
 
-        alert("Hi ha hagut un error en processar la petició");
+        alert("Hi ha hagut un error en processar la petició. Pot ser degut a no tenir instal·lat l'idCAT Certificat. L'idCAT Mòbil no serveix per aquest sondeig.");
         console.error(msg);
     }, [message]);
 
