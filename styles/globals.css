@@ -44,3 +44,7 @@ span.animate-spin {
 span.vote-icon {
     filter: hue-rotate(172deg) saturate(60%);
 }
+
+span.faqs-icon {
+    filter: grayscale(100%);
+}
