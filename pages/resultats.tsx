@@ -370,7 +370,7 @@ const TableResults = ({results, seats} : {results: AggregatedDhondt, seats?: boo
     return (
         <>
             {
-                Object.keys(results).map((region) => (
+                Object.keys(results).sort().map((region) => (
                     <RegionResults
                         results={results[region]}
                         region={region}
