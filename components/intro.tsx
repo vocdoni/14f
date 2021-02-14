@@ -42,7 +42,7 @@ const Intro = ({ onClick }) => {
                 <p className="font-light text-vocdoni">
                     Els resultats es faran públics quasi bé immediatament
                     després del tancament dels col·legis electorals oficials.
-                    Podràs consultar-los a la mateixa pàgina web del sondeig.
+                    Podràs consultar-los aquí mateix.
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 mb-6 leading-5 md:grid-cols-10">
@@ -51,7 +51,9 @@ const Intro = ({ onClick }) => {
                     href="https://www.notion.so/Preguntes-freq-ents-14Fruites-6c04e6d2beb14ba282dc2b10b0feb59a"
                     target="_blank"
                 >
-                    <span className="w-full text-center faqs-icon">❓ FAQs</span>
+                    <span className="w-full text-center faqs-icon">
+                        ❓ FAQs
+                    </span>
                 </a>
                 <div className="flex flex-col col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-6 text-md rounded-xl">
                     <div className="my-auto">
@@ -127,8 +129,18 @@ const Intro = ({ onClick }) => {
             <footer className="flex flex-col py-10">
                 <PoweredByVocdoni />
                 <div className="mt-2 text-xs">
-                    <a className="underline" href="https://vocdoni.io/condiciones-de-uso-14fruites/">Condicions d'ús</a>
-                    <a className="ml-3 underline" href="https://vocdoni.io/politica-priv-14fruites/">Política de privacitat</a>
+                    <a
+                        className="underline"
+                        href="https://vocdoni.io/condiciones-de-uso-14fruites/"
+                    >
+                        Condicions d'ús
+                    </a>
+                    <a
+                        className="ml-3 underline"
+                        href="https://vocdoni.io/politica-priv-14fruites/"
+                    >
+                        Política de privacitat
+                    </a>
                 </div>
             </footer>
         </>
