@@ -23,6 +23,10 @@
     background-color: var(--vocdoni-primary);
 }
 
+.bg-vocdoni {
+    border-color: var(--vocdoni-primary);
+}
+
 button {
     @apply p-4 transition-colors duration-200 border border-transparent shadow-lg rounded-xl focus:outline-none;
 }
