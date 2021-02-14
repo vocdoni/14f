@@ -59,7 +59,7 @@ const Intro = ({ onClick }) => {
                         <span className="w-full text-center">➡️ Continua</span>
                     )}
                 </button>
-                <div className="flex flex-col col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-8 text-md rounded-xl">
+                <div className="flex flex-col col-span-1 p-4 text-blue-800 bg-blue-100 border border-transparent md:col-span-6 text-md rounded-xl">
                     <div className="my-auto">
                         Si disposes d'un certificat idCAT Certificat, podràs
                         participar-hi durant la jornada electoral del 14 de
@@ -74,6 +74,13 @@ const Intro = ({ onClick }) => {
                         .
                     </div>
                 </div>
+                <a
+                    className="inline-flex items-center col-span-1 p-4 text-xl font-medium bg-red-500 shadow md:col-span-2 hover:bg-red-600 rounded-xl"
+                    href="https://www.notion.so/Preguntes-freq-ents-14Fruites-6c04e6d2beb14ba282dc2b10b0feb59a"
+                    target="_blank"
+                >
+                    <span className="w-full text-center faqs-icon">❓ FAQs</span>
+                </a>
             </div>
             <div className="text-xs leading-4 text-gray-600">
                 <p className="mb-2">
