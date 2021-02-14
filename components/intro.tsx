@@ -71,17 +71,12 @@ const Intro = ({ onClick }) => {
                     </div>
                 </div>
                 <button
-                    disabled={loading}
-                    onClick={onClick}
                     className="inline-flex items-center col-span-1 text-xl md:col-span-2 main-action"
+                    onClick={() => {
+                        document.location.pathname = '/resultats'
+                    }}
                 >
-                    {loading ? (
-                        <span className="w-full text-center">
-                            <Spinner /> Carregant...
-                        </span>
-                    ) : (
-                        <span className="w-full text-center">➡️ Continua</span>
-                    )}
+                    <span className="w-full text-center">➡️ Resultats</span>
                 </button>
             </div>
             <div className="text-xs leading-4 text-gray-600">
