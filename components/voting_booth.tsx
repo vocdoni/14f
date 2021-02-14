@@ -119,7 +119,7 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc:
                         element: e.currentTarget,
                     })
                 }
-                className="text-3xl bg-translucent hover:bg-gray-100 hover:text-black"
+                className="text-3xl border-2 border-white bg-translucent hover:bg-gray-100 hover:text-black"
             >
                 {content(value, option.title.default)}
             </button>
@@ -266,8 +266,8 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc:
     useEffect(() => {
         if (selectedOption == null) return;
 
-        selectedOption.element.classList.add("bg-vocdoni");
-        previousOption?.element.classList.remove("bg-vocdoni");
+        selectedOption.element.classList.add("bg-vocdoni", "border-vocdoni", "border-2");
+        previousOption?.element.classList.remove("bg-vocdoni", "border-vocdoni", "border-2");
     }, [selectedOption]);
 
     return (
