@@ -84,9 +84,11 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc:
 
     const warning = (
         <div className="px-4 py-4 mb-6 text-sm text-yellow-800 bg-yellow-100 border border-transparent lg:text-md rounded-xl">
-            Per poder triar, has d'identificar-te primer. Recorda que necessites
+            <p className="mb-3">Per poder triar, has d'identificar-te primer. Recorda que necessites
             l'idCAT Certificat instal·lat al navegador. Un cop feta
-            l'autenticació, s'activaran els botons de les fruites i per votar.
+            l'autenticació, s'activaran els botons de les fruites i per votar.</p>
+            <p className="mb-3">Si necessites canviar de circunscripció, refresca la pàgina i torna a iniciar el procés.</p>
+            <p>Inicia la identificació quan ho tinguis tot preparat.</p>
         </div>
     );
 
@@ -280,13 +282,7 @@ const VotingBooth = ({ proc, stats, onBackNavigation, onVote, onError }: { proc:
             </header>
             <div className="grid grid-cols-2 gap-4 mb-6 lg:grid-cols-4">{buttons}</div>
             {disabled ? warning : null}
-            <div className="flex flex-col lg:flex-row lg:justify-between">
-                <button
-                    className="w-full mb-3 lg:w-auto lg:float-left lg:mb-0 bg-translucent hover:bg-gray-100"
-                    onClick={onBackNavigation}
-                >
-                    ⬅️ Canvia de circumscripció
-                </button>
+            <div className="flex flex-col lg:flex-row lg:justify-end">
                 {
                     disabled ?
                     <button
