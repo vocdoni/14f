@@ -214,7 +214,7 @@ const ResultsPage = () => {
             return
         }
 
-        fetch("/dev-process-ids.json?random=" + Math.random().toString().slice(2))
+        fetch("/process-ids.json?random=" + Math.random().toString().slice(2))
             .then((res) => res.json())
             .then(async (processMap) => {
                 const res = {}
